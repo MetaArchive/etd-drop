@@ -1,0 +1,6 @@
+venv
+*.pyc
+staticfiles
+*.sqlite
+*.sqlite-journal
+*.env
