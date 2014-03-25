@@ -1,0 +1,44 @@
+{% extends "etd_drop_app/base.html" %}
+
+{% block content %}
+<form role="form">
+  <fieldset>
+    <legend>Upload files</legend>
+    <div class="form-group">
+      <label for="exampleInputFile">Main PDF File</label>
+      <span class="btn btn-default btn-file">
+        <input type="file" id="exampleInputFile">Select file
+      </span>
+      <p class="help-block">Upload a PDF version of your ETD. Please take care to ensure that any custom fonts are properly embedded and that your PDF displays correctly on different devices before submitting.</p>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputFile">Supplemental Data</label>
+      <span class="btn btn-default btn-file">
+        <input type="file" id="exampleInputFile">Select file
+      </span>
+      <p class="help-block">(Optional) Upload a ZIP file containing any supplemental data you wish to deposit along with your ETD.</p>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Metadata</legend>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" class="form-control" placeholder="Thesis or dissertation title">
+    </div>
+    <div class="form-group">
+      <label for="title">Short Description</label>
+      <textarea id="title" class="form-control" placeholder="A one or two sentence abstract on the thesis or dissertation"></textarea>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Finish submission</legend>
+    <p>Agreement text</p>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"> I agree to the terms
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>
+{% endblock %}
