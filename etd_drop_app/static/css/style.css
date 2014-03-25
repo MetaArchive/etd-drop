@@ -42,16 +42,6 @@ body {
   margin: 30px 0;
 }
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  padding: 14px 24px;
-  font-size: 21px;
-}
-
 /* Supporting marketing content */
 .marketing {
   margin: 40px 0;
@@ -85,20 +75,18 @@ label {
 }
 .btn-file {
   position: relative;
-  overflow: hidden;
 }
 .btn-file input[type=file] {
-  position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   min-width: 100%;
   min-height: 100%;
-  font-size: 999px;
   text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
   outline: none;
-  background: white;
   cursor: inherit;
   display: block;
+}
+
+fieldset {
+  margin-bottom: 3em;
 }

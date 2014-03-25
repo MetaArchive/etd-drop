@@ -13,4 +13,7 @@ urlpatterns = patterns('',
 
     # /submit
     url(r'^submit$', 'etd_drop_app.views.submit'),
+
+    # /submissions (staff only)
+    url(r'^submissions$', 'etd_drop_app.views.submissions'),
 )

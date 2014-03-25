@@ -2,20 +2,21 @@
 
 {% block content %}
 <form role="form">
+  {% csrf_token %}
   <fieldset>
     <legend>Upload files</legend>
     <div class="form-group">
       <label for="exampleInputFile">Main PDF File</label>
-      <span class="btn btn-default btn-file">
-        <input type="file" id="exampleInputFile">Select file
-      </span>
+      <div class="well">
+        <input type="file" id="exampleInputFile">
+      </div>
       <p class="help-block">Upload a PDF version of your ETD. Please take care to ensure that any custom fonts are properly embedded and that your PDF displays correctly on different devices before submitting.</p>
     </div>
     <div class="form-group">
       <label for="exampleInputFile">Supplemental Data</label>
-      <span class="btn btn-default btn-file">
-        <input type="file" id="exampleInputFile">Select file
-      </span>
+      <div class="well">
+        <input type="file" id="exampleInputFile">
+      </div>
       <p class="help-block">(Optional) Upload a ZIP file containing any supplemental data you wish to deposit along with your ETD.</p>
     </div>
   </fieldset>
@@ -23,22 +24,22 @@
     <legend>Metadata</legend>
     <div class="form-group">
       <label for="title">Title</label>
-      <input type="text" id="title" class="form-control" placeholder="Thesis or dissertation title">
+      <input type="text" name="title" class="form-control" placeholder="Thesis or dissertation title">
     </div>
     <div class="form-group">
-      <label for="title">Short Description</label>
-      <textarea id="title" class="form-control" placeholder="A one or two sentence abstract on the thesis or dissertation"></textarea>
+      <label for="desc">Short Description</label>
+      <textarea name="desc" class="form-control" placeholder="A one or two sentence abstract on the thesis or dissertation"></textarea>
     </div>
   </fieldset>
   <fieldset>
     <legend>Finish submission</legend>
-    <p>Agreement text</p>
+    <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum. Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
     <div class="checkbox">
       <label>
         <input type="checkbox"> I agree to the terms
       </label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
   </fieldset>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {% endblock %}

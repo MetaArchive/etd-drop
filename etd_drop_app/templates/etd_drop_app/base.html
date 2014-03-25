@@ -29,12 +29,14 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="/">Start</a></li>
-          <li><a href="/submit">Submit</a></li>
+          <li class="active"><a href="/submit">New Submission</a></li>
+          {% if user.is_staff %}
+          <li><a href="/submissions">Submissions</a></li>
+          {% endif %}
           {% if user.is_authenticated %}
-          <li><a href="/logout">Log Out</a></li>
+          <li><a href="/logout">Log Out ({{ user.username }})</a></li>
           {% else %}
-          <li><a href="/">Not logged in</a></li>
+          <li><a href="/login">Log In</a></li>
           {% endif %}
         </ul>
         <h3 class="text-muted">ETD Drop</h3>

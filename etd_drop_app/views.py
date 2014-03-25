@@ -8,16 +8,35 @@ def logout_view(request):
 	'''Logs the user out and redirects home'''
 	logout(request)
 	messages.success(request, "You have been logged out successfully.")
-	return redirect('/')
+	return redirect('/login')
 
 def index(request):
 	'''Homepage, with login form'''
-	context = RequestContext(request)
-	context['title'] = "Welcome"
-	return render(request, 'etd_drop_app/index.html', context)
+	return redirect('/login')
 
 def submit(request):
 	'''Submit page, with submission form'''
+	if not request.user.is_authenticated():
+		messages.warning(request, "You must log in before submitting.")
+		return redirect('/login')
 	context = RequestContext(request)
-	context['title'] = "Submit an ETD"
+	context['title'] = "New Submission"
 	return render(request, 'etd_drop_app/submit.html', context)
+
+def submissions(request):
+	'''Administrative list of bags in the bag directory'''
+	if not request.user.is_authenticated():
+		messages.warning(request, "You must log in to view this page.")
+		return redirect('/login')
+	if not request.user.is_staff:
+		messages.warning(request, "Forbidden.")
+		return redirect('/login')
+	context = RequestContext(request)
+	context['title'] = "Submissions"
+
+	# Do work
+	messages.info(request, "The code for doing this isn't here yet.")
+	submissions = []
+
+	context['submissions'] = submissions
+	return render(request, 'etd_drop_app/submissions.html', context)

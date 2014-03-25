@@ -14,17 +14,23 @@
   </div>
   <div class="col-lg-6">
     <div class="well">
-      <form role="form">
+      {% if user.is_authenticated %}
+      <p>Logged in as <strong>{{ user.username }}</strong>.</p>
+      <a class="btn btn-primary" href="/logout">Log Out</a>
+      {% else %}
+      <form role="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+        {% csrf_token %}
         <div class="form-group">
           <label for="user">Username</label>
-          <input type="text" id="user" class="form-control" placeholder="Username">
+          <input type="text" name="username" id="user" class="form-control" placeholder="Username">
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" id="password" class="form-control" placeholder="Password">
         </div>
         <button type="submit" class="btn btn-primary">Log In</button>
       </form>
+      {% endif %}
     </div>
   </div>
 </div>

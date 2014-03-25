@@ -1,0 +1,26 @@
+{% extends "etd_drop_app/base.html" %}
+
+{% block content %}
+{% if submissions %}
+<table class="table table-hover table-striped table-condensed">
+  <thead>
+    <tr>
+      <th>Directory</th>
+      <th>Identifier</th>
+      <th>PDF</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for entry in submissions %}
+    <tr>
+      <td>{{ entry.dir_name }}</td>
+      <td></td>
+      <td>PDF</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+No bags were found in the ETD bag directory.
+{% endif %}
+{% endblock %}

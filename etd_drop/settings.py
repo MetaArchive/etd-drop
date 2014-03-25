@@ -7,6 +7,35 @@ https://docs.djangoproject.com/en/1.6/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
+from os import environ
+from tempfile import mkdtemp
+
+# Normally you should not import ANYTHING from Django directly
+# into your settings, but ImproperlyConfigured is an exception.
+from django.core.exceptions import ImproperlyConfigured
+def get_env_setting(setting, default=None, required=False):
+    """ Get the environment setting or return exception """
+    try:
+        return environ[setting]
+    except KeyError:
+        if required and default==None:
+            error_msg = "Set the %s env variable" % setting
+            raise ImproperlyConfigured(error_msg)
+        return default
+
+
+## ETD DROP CONFIGURATION
+
+# Set this to where you want the submission bags to go
+ETD_BAG_DIRECTORY = get_env_setting('ETD_BAG_DIRECTORY', default=mkdtemp(prefix="etd-drop"))
+#ETD_BAG_DIRECTORY = "/data"
+
+# Uncomment if you want to get DAITSS Format Description Service output for 
+# submissions
+#DESCRIPTION_SERVICE_URL = "http://localhost:3000"
+
+## END ETD DROP CONFIGURATION
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -81,3 +110,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Post-login redirect behavior
+LOGIN_REDIRECT_URL = '/submit'
