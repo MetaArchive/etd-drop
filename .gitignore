@@ -2,5 +2,7 @@ venv
 *.pyc
 staticfiles
 *.sqlite
+*.sqlite3
 *.sqlite-journal
 *.env
+*.sublime*
