@@ -1,6 +1,8 @@
+import os
+import zipfile
+
 from django import forms, template
 from django.conf import settings
-
 import bagit
 
 
@@ -46,6 +48,7 @@ class NewSubmissionForm(forms.Form):
         required=True,
         help_text="I accept the terms of the above agreement."
     )
+    # TODO: Custom validation that PDF is really a PDF, etc...
     def save(self, author):
         """
         Saves the submission, taking care of BagIt creation and any
@@ -54,10 +57,50 @@ class NewSubmissionForm(forms.Form):
         author is the User who submitted the request.
         return value is the name of the bag directory created, or None.
         """
-        # Generate a name for the bag. Must be unique.
-        bag_name = "20140325-121212-%s" % author.username
+        # Generate a name for the directory. Must be unique.
+        datestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        etd_id = "%s-%s" % (datestamp, author.username)
 
+        # Set up staging directory for this bag (e.g. "STAGING_20140326-160532_lbroglie")
+        staging_name = "STAGING_%s" % etd_id
+        staging_path = os.path.abspath(os.path.join(settings.ETD_STORAGE_DIRECTORY, staging_name))
 
-        if True:
-            return "worked"
-        return None
+        try:
+            # Create the staging directory
+            os.makedirs(staging_path)
+
+            # Create a file representing information submitted in the form
+            # TODO
+
+            # Move the main document to the staging area
+            document_path = os.path.join(staging_path, "document.pdf")
+            with open(document_path, 'wb+') as destination:
+                for chunk in self.cleaned_data['document_file']:
+                    destination.write(chunk)
+
+            # Move the license document to the staging area, if provided
+
+            # Try to process the supplemental file as a ZipFile, if provided
+            # zip = zipfile.ZipFile(self.cleaned_data['supplemental_file'], 'r')
+
+            # Turn the staging directory into a bag
+            bag_info = {
+                'Internal-Sender-Identifier': self.cleaned_data['title'],
+                'Internal-Sender-Description': self.cleaned_data['description']
+            }
+            bagit.make_bag(staging_path, bag_info)
+
+            # Remove "STAGING_" from the name of the directory to signify completion
+            final_path = os.path.abspath(os.path.join(settings.ETD_STORAGE_DIRECTORY, etd_id))
+            os.rename(staging_path, final_path)
+
+            # Return the id to signify success to the caller
+            return etd_id
+        except:
+            # Log this event
+            # TODO
+
+            # Clean up the staging directory if it exists
+            # TODO
+
+            return None
