@@ -90,3 +90,15 @@ label {
 fieldset {
   margin-bottom: 3em;
 }
+
+/* Form validation errors */
+.errorlist {
+}
+.errorlist li {
+  list-style: none;
+  color: #e74c3c;
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-top: 3px;
+  font-weight: bold;
+}

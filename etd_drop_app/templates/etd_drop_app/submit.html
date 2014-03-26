@@ -1,44 +1,56 @@
 {% extends "etd_drop_app/base.html" %}
 
 {% block content %}
-<form role="form">
+<form enctype="multipart/form-data" method="post" action="" role="form">
   {% csrf_token %}
   <fieldset>
     <legend>Upload files</legend>
-    <div class="form-group">
-      <label for="exampleInputFile">Main PDF File</label>
-      <div class="well">
-        <input type="file" id="exampleInputFile">
-      </div>
-      <p class="help-block">Upload a PDF version of your ETD. Please take care to ensure that any custom fonts are properly embedded and that your PDF displays correctly on different devices before submitting.</p>
+
+    <div class="form-group{% if form.document_file.errors %} has-error{% endif %}">
+      <label for="document_file">{{ form.document_file.label }}</label>
+      <input class="well" type="file" name="document_file">
+      <p class="help-block">{{ form.document_file.help_text }}</p>
+      {{ form.document_file.errors }}
     </div>
-    <div class="form-group">
-      <label for="exampleInputFile">Supplemental Data</label>
-      <div class="well">
-        <input type="file" id="exampleInputFile">
-      </div>
-      <p class="help-block">(Optional) Upload a ZIP file containing any supplemental data you wish to deposit along with your ETD.</p>
+
+    <div class="form-group{% if form.supplemental_file.errors %} has-error{% endif %}">
+      <label for="supplemental_file">{{ form.supplemental_file.label }}</label>
+      <input class="well" type="file" name="supplemental_file">
+      <p class="help-block">{{ form.supplemental_file.help_text }}</p>
+      {{ form.supplemental_file.errors }}
     </div>
+
   </fieldset>
   <fieldset>
     <legend>Metadata</legend>
-    <div class="form-group">
-      <label for="title">Title</label>
-      <input type="text" name="title" class="form-control" placeholder="Thesis or dissertation title">
+
+    <div class="form-group{% if form.title.errors %} has-error{% endif %}">
+      <label for="title">{{ form.title.label }}</label>
+      <input type="text" name="title" class="form-control" placeholder="e.g. Research on the Theory of the Quanta" value="{{ form.cleaned_data.title }}">
+      <p class="help-block">{{ form.title.help_text }}</p>
+      {{ form.title.errors }}
     </div>
-    <div class="form-group">
-      <label for="desc">Short Description</label>
-      <textarea name="desc" class="form-control" placeholder="A one or two sentence abstract on the thesis or dissertation"></textarea>
+
+    <div class="form-group{% if form.description.errors %} has-error{% endif %}">
+      <label for="description">{{ form.description.label }}</label>
+      <textarea name="description" class="form-control" rows="4">{{ form.cleaned_data.description }}</textarea>
+      <p class="help-block">{{ form.description.help_text }}</p>
+      {{ form.description.errors }}
     </div>
+
   </fieldset>
   <fieldset>
     <legend>Finish submission</legend>
-    <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum. Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox"> I agree to the terms
+
+    {{ agreement|linebreaks }}
+
+    <div class="form-group">
+      <label class="checkbox control-label">
+        <input type="checkbox" name="agreement"{% if form.cleaned_data.agreement %} checked{% endif %}> I agree to the terms
       </label>
+      {{ form.agreement.errors }}
     </div>
+
   </fieldset>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

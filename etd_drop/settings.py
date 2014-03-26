@@ -34,6 +34,13 @@ ETD_BAG_DIRECTORY = get_env_setting('ETD_BAG_DIRECTORY', default=mkdtemp(prefix=
 # submissions
 #DESCRIPTION_SERVICE_URL = "http://localhost:3000"
 
+# This is the agreement that will be displayed on the submission page.
+SUBMISSION_AGREEMENT = """
+I agree to submit this thing to this web site, and to not get upset about it later on.
+
+This is a second paragraph of the agreement.
+"""
+
 ## END ETD DROP CONFIGURATION
 
 
@@ -108,8 +115,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
 STATIC_URL = '/static/'
 
 # Post-login redirect behavior
 LOGIN_REDIRECT_URL = '/submit'
+
+# Messages overrides (for Bootstrap CSS)
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
