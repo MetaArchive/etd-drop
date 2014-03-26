@@ -1,4 +1,5 @@
 from django import forms, template
+from django.conf import settings
 
 import bagit
 
@@ -22,6 +23,13 @@ class NewSubmissionForm(forms.Form):
         help_text="(Optional) Upload a ZIP file containing any supplemental "
         "data you wish to deposit along with your ETD."
     )
+    license_file = forms.FileField(
+        label="License Agreement",
+        required=False,
+        allow_empty_file=False,
+        help_text="(Optional) Upload a signed copy of a copyright license "
+        "agreement, as per the policy of your institution."
+    )
     title = forms.CharField(
         label="Title",
         required=True,
@@ -42,8 +50,14 @@ class NewSubmissionForm(forms.Form):
         """
         Saves the submission, taking care of BagIt creation and any
         other necessary ingest behavior.
+
         author is the User who submitted the request.
         return value is the name of the bag directory created, or None.
         """
-        return "worked"
+        # Generate a name for the bag. Must be unique.
+        bag_name = "20140325-121212-%s" % author.username
+
+
+        if True:
+            return "worked"
         return None

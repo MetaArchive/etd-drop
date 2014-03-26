@@ -20,6 +20,13 @@
       {{ form.supplemental_file.errors }}
     </div>
 
+    <div class="form-group{% if form.license_file.errors %} has-error{% endif %}">
+      <label for="license_file">{{ form.license_file.label }}</label>
+      <input class="well" type="file" name="license_file">
+      <p class="help-block">{{ form.license_file.help_text }}</p>
+      {{ form.license_file.errors }}
+    </div>
+
   </fieldset>
   <fieldset>
     <legend>Metadata</legend>
