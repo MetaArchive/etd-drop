@@ -69,7 +69,7 @@ for this new account. (You can leave the "email" field blank.)
 
 1. `cd` into this repository's directory.
 2. Activate your virtual environment: `source venv/bin/activate`
-3. Start the development server: `python manage.py runserver`
+3. Start the development server: `DJANGO_DEBUG=1 python manage.py runserver`
 4. When you wish to stop the server, use CTRL+C in the terminal window.
 
 
