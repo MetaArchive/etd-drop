@@ -40,7 +40,7 @@ a SQLite database will be created and used.
 
 ## Installation and Local Testing
 
-Note: You will want to have Python 2.7 and virtualenv installed before
+Note: You will want to have Python 2.7.4 and virtualenv installed before
 continuing.
 
 ### Initial Setup

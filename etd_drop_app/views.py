@@ -29,7 +29,10 @@ def submit(request):
 			result = form.save(request.user)
 			if result:
 				messages.success(request, "Your submission was successfully uploaded.")
-				return redirect('/login')
+				context = RequestContext(request)
+				context['title'] = "Submission Receipt"
+				context['submission_id'] = result
+				return render(request, 'etd_drop_app/receipt.html', context)
 			else:
 				messages.error(request, "Your submission failed to process for an unknown reason. Contact the help desk or try again.")
 		else:
