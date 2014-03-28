@@ -16,4 +16,11 @@ urlpatterns = patterns('',
 
     # /submissions (staff only)
     url(r'^submissions$', 'etd_drop_app.views.submissions'),
+    
+    # /submissions/[ID] (staff only)
+    url(r'^submissions/(?P<id>.+)$', 'etd_drop_app.views.submission_detail'),
+    
+    # /submissions/[ID].pdf (staff only)
+    url(r'^submissions/(?P<id>.+).pdf$', 'etd_drop_app.views.submission_detail'),
+
 )

@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.contrib.auth import logout
@@ -54,12 +56,29 @@ def submissions(request):
 	if not request.user.is_staff:
 		messages.warning(request, "Forbidden.")
 		return redirect('/login')
+
+	submissions = []
+	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
+	for subdir in os.listdir(storage_path):
+		# Quickly check if this is a bag
+		if True:  # TODO
+			# Add to submissions
+			submissions.append({
+				'identifier': subdir,
+				'username': subdir.split('-', 2)[-1]
+			})
+
 	context = RequestContext(request)
 	context['title'] = "Submissions"
-
-	# Do work
-	messages.info(request, "The code for doing this isn't here yet.")
-	submissions = []
-
 	context['submissions'] = submissions
 	return render(request, 'etd_drop_app/submissions.html', context)
+
+def submission_detail(request, id):
+	"""Details for a single submission."""
+	messages.info(request, "Viewing submissions is not yet implemented.")
+	return redirect('/')
+
+def submission_pdf(request, id):
+	"""Direct PDF download for a single submission."""
+	messages.info(request, "PDF downloads are not yet implemented.")
+	return redirect('/')
