@@ -121,6 +121,7 @@ class NewSubmissionForm(forms.Form):
                 indent=2
             )
             form_record_file.close()
+            # TODO: Maybe write an XML version also
 
             # Turn the staging directory into a bag
             bag_info = {

@@ -11,7 +11,7 @@
       <p>Logged in as <strong>{{ user.username }}</strong>.</p>
       <a class="btn btn-primary" href="/logout">Log Out</a>
       {% else %}
-      <form role="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+      <form role="form" method="post" action="{% url 'etd_drop_app.views.login_view' %}">
         {% csrf_token %}
         <div class="form-group">
           <label for="user">Username</label>

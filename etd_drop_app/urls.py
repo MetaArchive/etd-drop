@@ -7,7 +7,7 @@ urlpatterns = patterns('',
 	url(r'^$', 'etd_drop_app.views.index', name='index'),
 
 	# /login
-    url(r'^login$', 'etd_drop_app.views.login'),
+    url(r'^login$', 'etd_drop_app.views.login_view'),
     # /logout
     url(r'^logout$', 'etd_drop_app.views.logout_view'),
 
