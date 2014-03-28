@@ -8,21 +8,21 @@
 
     <div class="form-group{% if form.document_file.errors %} has-error{% endif %}">
       <label for="document_file">{{ form.document_file.label }}</label>
-      <input class="well" type="file" name="document_file">
+      <input class="well" type="file" name="document_file" required accept="application/pdf">
       <p class="help-block">{{ form.document_file.help_text }}</p>
       {{ form.document_file.errors }}
     </div>
 
     <div class="form-group{% if form.supplemental_file.errors %} has-error{% endif %}">
       <label for="supplemental_file">{{ form.supplemental_file.label }}</label>
-      <input class="well" type="file" name="supplemental_file">
+      <input class="well" type="file" name="supplemental_file" accept="application/zip">
       <p class="help-block">{{ form.supplemental_file.help_text }}</p>
       {{ form.supplemental_file.errors }}
     </div>
 
     <div class="form-group{% if form.license_file.errors %} has-error{% endif %}">
       <label for="license_file">{{ form.license_file.label }}</label>
-      <input class="well" type="file" name="license_file">
+      <input class="well" type="file" name="license_file" accept="application/pdf">
       <p class="help-block">{{ form.license_file.help_text }}</p>
       {{ form.license_file.errors }}
     </div>
