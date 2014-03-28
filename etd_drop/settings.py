@@ -46,9 +46,7 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440
 
 # This is the agreement that will be displayed on the submission page.
 SUBMISSION_AGREEMENT = u"""
-I agree to submit this thing to this web site, and to not get upset about it later on.
-
-This is a second paragraph of the agreement.
+By clicking the box below I agree that this submission is complete. Any errors in this submission will require a complete re-submission. Please be sure.
 """
 
 ################################

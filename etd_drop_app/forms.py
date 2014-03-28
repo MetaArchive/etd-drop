@@ -18,16 +18,17 @@ class NewSubmissionForm(forms.Form):
         label="Main PDF File",
         required=True,
         allow_empty_file=False,
-        help_text="Upload a PDF version of your ETD. Please take care to "
-        "ensure that any custom fonts are properly embedded and that your "
-        "PDF displays correctly on different devices before submitting."
+        help_text="Upload a PDF version of your thesis or dissertation. "
+        "Please take care to ensure that any custom fonts are properly "
+        "embedded and that your PDF displays correctly on different devices "
+        "before submitting."
     )
     supplemental_file = forms.FileField(
         label="Supplemental Data",
         required=False,
         allow_empty_file=False,
         help_text="(Optional) Upload a ZIP file containing any supplemental "
-        "data you wish to deposit along with your ETD."
+        "files you wish to deposit along with your thesis or dissertation."
     )
     license_file = forms.FileField(
         label="License Agreement",
@@ -39,18 +40,16 @@ class NewSubmissionForm(forms.Form):
     title = forms.CharField(
         label="Title",
         required=True,
-        help_text="Thesis or dissertation title"
+        help_text="Title of your thesis or dissertation"
     )
     description = forms.CharField(
-        label="Short Description",
+        label="Abstract",
         required=True,
-        help_text="A one or two sentence abstract on the thesis or "
-        "dissertation"
+        help_text="Abstract of your thesis or dissertation"
     )
     agreement = forms.BooleanField(
-        label="Agreement",
-        required=True,
-        help_text="I accept the terms of the above agreement."
+        label="I agree to the terms.",
+        required=True
     )
     # TODO: Custom validation that PDF is really a PDF, etc...
     def save(self, author):
