@@ -45,7 +45,7 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440
 #DESCRIPTION_SERVICE_URL = "http://localhost:3000"
 
 # This is the agreement that will be displayed on the submission page.
-SUBMISSION_AGREEMENT = """
+SUBMISSION_AGREEMENT = u"""
 I agree to submit this thing to this web site, and to not get upset about it later on.
 
 This is a second paragraph of the agreement.
