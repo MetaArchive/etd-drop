@@ -2,12 +2,20 @@ import os
 
 from django.shortcuts import render, redirect
 from django.template import RequestContext
-from django.contrib.auth import logout
+from django.contrib.auth import logout, views as authviews
 from django.contrib import messages
 from django.conf import settings
 
 from forms import NewSubmissionForm
 
+
+def login(request):
+	context = {
+		'title': 'Log In',
+		'contact_phone': getattr(settings, 'CONTACT_PHONE', '').strip(),
+		'contact_email': getattr(settings, 'CONTACT_EMAIL', '').strip()
+	}
+	return authviews.login(request, extra_context=context)
 
 def logout_view(request):
 	"""Logs the user out and redirects home"""

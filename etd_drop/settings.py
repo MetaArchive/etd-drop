@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 """
 Django settings for etd_drop project.
 
@@ -44,8 +45,12 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440
 # submissions
 #DESCRIPTION_SERVICE_URL = "http://localhost:3000"
 
+# Contact info shown on homepage
+CONTACT_PHONE = "(000) 000-0000"
+CONTACT_EMAIL = "example@domain.edu"
+
 # This is the agreement that will be displayed on the submission page.
-SUBMISSION_AGREEMENT = u"""
+SUBMISSION_AGREEMENT = """
 By clicking the box below I agree that this submission is complete. Any errors in this submission will require a complete re-submission. Please be sure.
 """
 

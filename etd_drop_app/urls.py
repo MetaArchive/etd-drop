@@ -7,7 +7,7 @@ urlpatterns = patterns('',
 	url(r'^$', 'etd_drop_app.views.index', name='index'),
 
 	# /login
-    url(r'^login$', 'django.contrib.auth.views.login', {'extra_context': {'title': 'Log In'}}),
+    url(r'^login$', 'etd_drop_app.views.login'),
     # /logout
     url(r'^logout$', 'etd_drop_app.views.logout_view'),
 

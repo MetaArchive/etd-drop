@@ -32,6 +32,21 @@
       </form>
       {% endif %}
     </div>
+    {% if contact_email or contact_phone %}
+    <div class="panel panel-info" id="contact-info">
+      <div class="panel-heading">Need help?</div>
+      <div class="panel-body">
+        {% if contact_email %}
+        <label>Email</label>
+        <p><a href="">{{ contact_email|urlize }}</p>
+        {% endif %}
+        {% if contact_phone %}
+        <label>Phone</label>
+        <p>{{ contact_phone }}</p>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
