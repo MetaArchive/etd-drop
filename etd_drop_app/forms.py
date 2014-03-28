@@ -1,5 +1,7 @@
 import os
+import sys
 import zipfile
+import json
 from datetime import datetime
 
 from django import forms, template
@@ -74,20 +76,57 @@ class NewSubmissionForm(forms.Form):
             # TODO
 
             # Move the main document to the staging area
-            document_path = os.path.join(staging_path, "document.pdf")
+            document_path = os.path.join(staging_path, "etd.pdf")
             with open(document_path, 'wb+') as destination:
                 for chunk in self.cleaned_data['document_file']:
                     destination.write(chunk)
 
             # Move the license document to the staging area, if provided
+            if self.cleaned_data['license_file']:
+                document_path = os.path.join(staging_path, "license.pdf")
+                with open(document_path, 'wb+') as destination:
+                    for chunk in self.cleaned_data['license_file']:
+                        destination.write(chunk)
 
             # Try to process the supplemental file as a ZipFile, if provided
-            # zip = zipfile.ZipFile(self.cleaned_data['supplemental_file'], 'r')
+            if self.cleaned_data['supplemental_file']:
+                supplemental_path = os.path.join(staging_path, "supplemental")
+                supplemental_zip = zipfile.ZipFile(self.cleaned_data['supplemental_file'], 'r')
+                supplemental_zip.extractall(supplemental_path)
+                supplemental_zip.close()
+
+            # Create a dict representing all the form data
+            form_record_path = os.path.join(staging_path, "form.json")
+            form_record_file = open(form_record_path, 'w')
+            form_record = {
+                'document_file': {
+                    'original_filename': self.cleaned_data['document_file'].name,
+                    'size': self.cleaned_data['document_file'].size,
+                    'content_type': self.cleaned_data['document_file'].content_type
+                },
+                'supplemental_file': {
+                    'original_filename': self.cleaned_data['supplemental_file'].name,
+                    'size': self.cleaned_data['supplemental_file'].size,
+                    'content_type': self.cleaned_data['supplemental_file'].content_type
+                },
+                'license_file': {
+                    'original_filename': self.cleaned_data['license_file'].name,
+                    'size': self.cleaned_data['license_file'].size,
+                    'content_type': self.cleaned_data['license_file'].content_type 
+                },
+                'title': self.cleaned_data['title'],
+                'description': self.cleaned_data['description']
+            }
+            json.dump(form_record, form_record_file,
+                skipkeys=True,
+                indent=2
+            )
+            form_record_file.close()
 
             # Turn the staging directory into a bag
             bag_info = {
-                'Internal-Sender-Identifier': self.cleaned_data['title'],
-                'Internal-Sender-Description': self.cleaned_data['description']
+                'Internal-Sender-Identifier': self.cleaned_data['title'].replace('\n', ' ').replace('\r', ''),
+                'Internal-Sender-Description': self.cleaned_data['description'].replace('\n', ' ').replace('\r', '')
             }
             bagit.make_bag(staging_path, bag_info)
 
@@ -97,7 +136,7 @@ class NewSubmissionForm(forms.Form):
 
             # Return the id to signify success to the caller
             return etd_id
-        except:
+        except Exception as e:
             # Log this event
             # TODO
 
