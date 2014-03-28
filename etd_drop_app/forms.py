@@ -2,6 +2,7 @@ import os
 import sys
 import zipfile
 import json
+import shutil
 from datetime import datetime
 
 from django import forms, template
@@ -72,9 +73,6 @@ class NewSubmissionForm(forms.Form):
             # Create the staging directory
             os.makedirs(staging_path)
 
-            # Create a file representing information submitted in the form
-            # TODO
-
             # Move the main document to the staging area
             document_path = os.path.join(staging_path, "etd.pdf")
             with open(document_path, 'wb+') as destination:
@@ -133,6 +131,9 @@ class NewSubmissionForm(forms.Form):
             # Remove "STAGING_" from the name of the directory to signify completion
             final_path = os.path.abspath(os.path.join(settings.ETD_STORAGE_DIRECTORY, etd_id))
             os.rename(staging_path, final_path)
+            
+            # Fire any emails/notifications/webhooks the institution wants to receive
+            # TODO
 
             # Return the id to signify success to the caller
             return etd_id
@@ -141,6 +142,7 @@ class NewSubmissionForm(forms.Form):
             # TODO
 
             # Clean up the staging directory if it exists
-            # TODO
+            if os.path.isdir(staging_path):
+                shutil.rmtree(staging_path)
 
             return None
