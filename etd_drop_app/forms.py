@@ -101,19 +101,21 @@ class NewSubmissionForm(forms.Form):
                     'size': self.cleaned_data['document_file'].size,
                     'content_type': self.cleaned_data['document_file'].content_type
                 },
-                'supplemental_file': {
-                    'original_filename': self.cleaned_data['supplemental_file'].name,
-                    'size': self.cleaned_data['supplemental_file'].size,
-                    'content_type': self.cleaned_data['supplemental_file'].content_type
-                },
-                'license_file': {
-                    'original_filename': self.cleaned_data['license_file'].name,
-                    'size': self.cleaned_data['license_file'].size,
-                    'content_type': self.cleaned_data['license_file'].content_type 
-                },
                 'title': self.cleaned_data['title'],
                 'description': self.cleaned_data['description']
             }
+            if self.cleaned_data['supplemental_file']:
+                form_record['supplemental_file'] = {
+                    'original_filename': self.cleaned_data['supplemental_file'].name,
+                    'size': self.cleaned_data['supplemental_file'].size,
+                    'content_type': self.cleaned_data['supplemental_file'].content_type
+                }
+            if self.cleaned_data['license_file']:
+                form_record['license_file'] = {
+                    'original_filename': self.cleaned_data['license_file'].name,
+                    'size': self.cleaned_data['license_file'].size,
+                    'content_type': self.cleaned_data['license_file'].content_type 
+                }
             json.dump(form_record, form_record_file,
                 skipkeys=True,
                 indent=2
@@ -122,8 +124,7 @@ class NewSubmissionForm(forms.Form):
 
             # Turn the staging directory into a bag
             bag_info = {
-                'Internal-Sender-Identifier': self.cleaned_data['title'].replace('\n', ' ').replace('\r', ''),
-                'Internal-Sender-Description': self.cleaned_data['description'].replace('\n', ' ').replace('\r', '')
+                'Internal-Sender-Identifier': self.cleaned_data['title'].replace('\n', ' ').replace('\r', '')
             }
             bagit.make_bag(staging_path, bag_info)
 
@@ -143,5 +144,8 @@ class NewSubmissionForm(forms.Form):
             # Clean up the staging directory if it exists
             if os.path.isdir(staging_path):
                 shutil.rmtree(staging_path)
+
+            if settings.DEBUG:
+                raise e
 
             return None
