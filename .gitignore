@@ -6,3 +6,4 @@ staticfiles
 *.sqlite-journal
 *.env
 *.sublime*
+docs/build/
