@@ -11,9 +11,10 @@ from forms import NewSubmissionForm
 
 def login(request):
 	context = {
-		'title': 'Log In',
+		'title': getattr(settings, 'HOMEPAGE_HEADING', 'Welcome').strip(),
+		'body_text': getattr(settings, 'HOMEPAGE_TEXT', '').strip(),
 		'contact_phone': getattr(settings, 'CONTACT_PHONE', '').strip(),
-		'contact_email': getattr(settings, 'CONTACT_EMAIL', '').strip()
+		'contact_email': getattr(settings, 'CONTACT_EMAIL', '').strip(),
 	}
 	return authviews.login(request, extra_context=context)
 
