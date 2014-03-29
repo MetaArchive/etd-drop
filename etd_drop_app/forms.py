@@ -42,7 +42,7 @@ class NewSubmissionForm(forms.Form):
         required=True,
         help_text="Title of your thesis or dissertation"
     )
-    description = forms.CharField(
+    abstract = forms.CharField(
         label="Abstract",
         required=True,
         help_text="Abstract of your thesis or dissertation"
@@ -60,7 +60,7 @@ class NewSubmissionForm(forms.Form):
         author is the User who submitted the request.
         return value is the name of the bag directory created, or None.
         """
-        # Generate a name for the directory. Must be unique.
+        # Generate a submission ID. Must be unique.
         datestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         etd_id = "%s-%s" % (datestamp, author.username)
 
@@ -102,7 +102,7 @@ class NewSubmissionForm(forms.Form):
                     'content_type': self.cleaned_data['document_file'].content_type
                 },
                 'title': self.cleaned_data['title'],
-                'description': self.cleaned_data['description']
+                'abstract': self.cleaned_data['abstract']
             }
             if self.cleaned_data['supplemental_file']:
                 form_record['supplemental_file'] = {

@@ -8,6 +8,8 @@
       <th>Identifier</th>
       <th>User</th>
       <th>PDF</th>
+      <th>JSON</th>
+      <th>XML</th>
     </tr>
   </thead>
   <tbody>
@@ -15,7 +17,9 @@
     <tr>
       <td><a href="/submissions/{{ entry.identifier }}">{{ entry.identifier }}</a></td>
       <td>{{ entry.username }}</td>
-      <td><a href="">PDF</a></td>
+      <td><a href="/submissions/{{ entry.identifier }}.pdf">PDF</a></td>
+      <td><a href="/submissions/{{ entry.identifier }}.json">JSON</a></td>
+      <td><a href="/submissions/{{ entry.identifier }}.xml">XML</a></td>
     </tr>
   {% endfor %}
   </tbody>

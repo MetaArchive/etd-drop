@@ -1,0 +1,35 @@
+{% extends "etd_drop_app/base.html" %}
+
+{% block content %}
+<h3>Download Links</h3>
+<a href="{% url 'etd_drop_app.views.submission_pdf' submission_id %}" class="btn btn-default">Main Document</a>
+<a href="{% url 'etd_drop_app.views.submission_detail' submission_id %}" class="btn btn-default">License Document</a>
+<a href="{% url 'etd_drop_app.views.submission_json' submission_id %}" class="btn btn-default">Form JSON</a>
+<a href="{% url 'etd_drop_app.views.submission_detail' submission_id %}" class="btn btn-default">Form XML</a>
+
+<h3>Basic Information and Metadata</h3>
+<table class="table">
+  <tr>
+    <th>Identifier</th>
+    <td>{{ submission_id }}</td>
+  </tr>
+  {% if submission.title %}
+  <tr>
+    <th>Title</th>
+    <td>{{ submission.title }}</td>
+  </tr>
+  {% endif %}
+  {% if submission.abstract %}
+  <tr>
+    <th>Abstract</th>
+    <td>{{ submission.abstract|linebreaks }}</td>
+  </tr>
+  {% endif %}
+</table>
+
+<h3>Bag Info</h3>
+<pre>{{ bag_info }}</pre>
+
+<h3>Bag Manifest</h3>
+<pre>{{ bag_manifest }}</pre>
+{% endblock %}

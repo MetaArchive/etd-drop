@@ -1,4 +1,5 @@
 import os
+import json
 
 from django.shortcuts import render, redirect
 from django.template import RequestContext
@@ -6,6 +7,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.views import login
 from django.contrib import messages
 from django.conf import settings
+from django.http import HttpResponse, Http404
+from django.core.servers.basehttp import FileWrapper
 
 from forms import NewSubmissionForm
 
@@ -65,7 +68,7 @@ def submissions(request):
 		return redirect('/login')
 	if not request.user.is_staff:
 		messages.warning(request, "Forbidden.")
-		return redirect('/login')
+		return redirect('/')
 
 	submissions = []
 	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
@@ -85,10 +88,74 @@ def submissions(request):
 
 def submission_detail(request, id):
 	"""Details for a single submission."""
-	messages.info(request, "Viewing submissions is not yet implemented.")
-	return redirect('/')
+	if not request.user.is_authenticated():
+		messages.warning(request, "You must log in to view this page.")
+		return redirect('/login')
+	if not request.user.is_staff:
+		messages.warning(request, "Forbidden.")
+		return redirect('/')
+
+	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
+	json_path = os.path.join(storage_path, id, 'data', 'form.json')
+	if os.path.isfile(json_path):
+		# Load JSON
+		with open(json_path, 'r') as json_file:
+			json_dict = json.load(json_file)
+
+		# Get bag tag files
+		info_path = os.path.join(storage_path, id, 'bag-info.txt')
+		with open(info_path, 'r') as info_file:
+			info_string = info_file.read()
+		manifest_path = os.path.join(storage_path, id, 'manifest-md5.txt')
+		with open(manifest_path, 'r') as manifest_file:
+			manifest_string = manifest_file.read()
+
+		context = RequestContext(request)
+		context['title'] = "Submission Details"
+		context['submission_id'] = id
+		context['submission'] = json_dict
+		context['bag_info'] = info_string
+		context['bag_manifest'] = manifest_string
+		return render(request, 'etd_drop_app/submission_detail.html', context)
+	else:
+		raise Http404
 
 def submission_pdf(request, id):
 	"""Direct PDF download for a single submission."""
-	messages.info(request, "PDF downloads are not yet implemented.")
-	return redirect('/')
+	if not request.user.is_authenticated():
+		messages.warning(request, "You must log in to view this page.")
+		return redirect('/login')
+	if not request.user.is_staff:
+		messages.warning(request, "Forbidden.")
+		return redirect('/')
+
+	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
+	pdf_path = os.path.join(storage_path, id, 'data', 'etd.pdf')
+	if os.path.isfile(pdf_path):
+		# Serve the file
+		wrapper = FileWrapper(file(pdf_path))
+		response = HttpResponse(wrapper, content_type='application/pdf')
+		response['Content-Length'] = os.path.getsize(pdf_path)
+		return response
+	else:
+		raise Http404
+
+def submission_json(request, id):
+	"""Direct JSON download for a single submission."""
+	if not request.user.is_authenticated():
+		messages.warning(request, "You must log in to view this page.")
+		return redirect('/login')
+	if not request.user.is_staff:
+		messages.warning(request, "Forbidden.")
+		return redirect('/')
+
+	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
+	file_path = os.path.join(storage_path, id, 'data', 'form.json')
+	if os.path.isfile(file_path):
+		# Serve the file
+		wrapper = FileWrapper(file(file_path))
+		response = HttpResponse(wrapper, content_type='application/json')
+		response['Content-Length'] = os.path.getsize(file_path)
+		return response
+	else:
+		raise Http404
