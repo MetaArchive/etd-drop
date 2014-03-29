@@ -102,3 +102,7 @@ fieldset {
   margin-top: 3px;
   font-weight: bold;
 }
+
+input.well {
+  margin-bottom: 0;
+}
