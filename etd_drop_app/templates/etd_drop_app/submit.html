@@ -1,4 +1,5 @@
 {% extends "etd_drop_app/base.html" %}
+{% load form_helpers %}
 
 {% block content %}
 <form enctype="multipart/form-data" method="post" action="" role="form">
@@ -31,19 +32,11 @@
   <fieldset>
     <legend>Metadata</legend>
 
-    <div class="form-group{% if form.title.errors %} has-error{% endif %}">
-      <label for="title">{{ form.title.label }}</label>
-      <input type="text" name="title" class="form-control" placeholder="e.g. Research on the Theory of the Quanta" value="{{ form.cleaned_data.title }}">
-      <p class="help-block">{{ form.title.help_text }}</p>
-      {{ form.title.errors }}
-    </div>
-
-    <div class="form-group{% if form.description.errors %} has-error{% endif %}">
-      <label for="description">{{ form.description.label }}</label>
-      <textarea name="description" class="form-control" rows="4">{{ form.cleaned_data.description }}</textarea>
-      <p class="help-block">{{ form.description.help_text }}</p>
-      {{ form.description.errors }}
-    </div>
+    {% bootstrap_field form.title "e.g. Research on the Theory of the Quanta" %}
+    {% bootstrap_field form.author %}
+    {% bootstrap_field form.subject %}
+    {% bootstrap_field form.date %}
+    {% bootstrap_field form.abstract %}
 
   </fieldset>
   <fieldset>

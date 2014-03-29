@@ -1,0 +1,14 @@
+<div class="form-group{% if field.errors %} has-error{% endif %}">
+<label>{{ field.label }}</label>
+  {% if widget == 'TextInput' %}
+  <input id="{{ field.auto_id }}" type="text" name="{{ field.name }}" class="form-control" placeholder="{{ placeholder }}" value="{{ value }}">
+  {% elif widget == 'Textarea' %}
+  <textarea name="{{ field.name }}" class="form-control" rows="4">{{ value }}</textarea>
+  {% elif widget == 'SelectDateWidget' %}
+  {{ field.as_widget }}
+  {% else %}
+  {{ field.as_widget }}
+  {% endif %}
+  <p class="help-block">{{ field.help_text }}</p>
+  {{ field.errors }}
+</div>

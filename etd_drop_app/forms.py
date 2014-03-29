@@ -7,6 +7,8 @@ from datetime import datetime
 
 from django import forms, template
 from django.conf import settings
+from django.forms.extras import SelectDateWidget
+
 import bagit
 
 
@@ -42,9 +44,26 @@ class NewSubmissionForm(forms.Form):
         required=True,
         help_text="Title of your thesis or dissertation"
     )
+    author = forms.CharField(
+        label="Author",
+        required=False,
+        help_text="Name of the author of this work as it appears on your title page"
+    )
+    subject = forms.CharField(
+        label="Subject(s)",
+        required=False,
+        help_text="Any topics or subjects as they appear on your title page, separated with commas"
+    )
+    date = forms.DateField(
+        label="Date",
+        required=False,
+        widget=SelectDateWidget,
+        help_text="Date of publication as it appears on your title page"
+    )
     abstract = forms.CharField(
         label="Abstract",
-        required=True,
+        required=False,
+        widget=forms.Textarea,
         help_text="Abstract of your thesis or dissertation"
     )
     agreement = forms.BooleanField(
@@ -124,9 +143,9 @@ class NewSubmissionForm(forms.Form):
             # TODO: Maybe write an XML version also
 
             # Turn the staging directory into a bag
-            bag_info = {
-                'Internal-Sender-Identifier': self.cleaned_data['title'].replace('\n', ' ').replace('\r', '')
-            }
+            bag_info = {}
+            if self.cleaned_data['title']:
+                bag_info['Internal-Sender-Identifier'] = self.cleaned_data['title'].replace('\n', ' ').replace('\r', '')
             bagit.make_bag(staging_path, bag_info)
 
             # Remove "STAGING_" from the name of the directory to signify completion
