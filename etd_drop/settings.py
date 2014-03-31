@@ -78,7 +78,7 @@ By clicking the box below I agree that this submission is complete. Any errors i
 SUBMISSION_FORM_FIELDS = {
 	'supplemental_file': {
 		'visible': True,
-		'required': True,
+		'required': False,
 	},
 	'license_file': {
 		'visible': True,
@@ -98,7 +98,7 @@ SUBMISSION_FORM_FIELDS = {
 	},
 	'date': {
 		'visible': True,
-		'required': True,
+		'required': False,
 	},
 	'abstract': {
 		'visible': True,
