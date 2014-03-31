@@ -27,42 +27,42 @@ class NewSubmissionForm(forms.Form):
     )
     supplemental_file = forms.FileField(
         label="Supplemental Data",
-        required=False,
+        required=settings.SUBMISSION_FORM_FIELDS['supplemental_file']['required'],
         allow_empty_file=False,
-        help_text="(Optional) Upload a ZIP file containing any supplemental "
+        help_text="Upload a ZIP file containing any supplemental "
         "files you wish to deposit along with your thesis or dissertation."
     )
     license_file = forms.FileField(
         label="License Agreement",
-        required=False,
+        required=settings.SUBMISSION_FORM_FIELDS['license_file']['required'],
         allow_empty_file=False,
-        help_text="(Optional) Upload a signed copy of a copyright license "
+        help_text="Upload a signed copy of a copyright license "
         "agreement, as per the policy of your institution."
     )
     title = forms.CharField(
         label="Title",
-        required=True,
+        required=settings.SUBMISSION_FORM_FIELDS['title']['required'],
         help_text="Title of your thesis or dissertation"
     )
     author = forms.CharField(
         label="Author",
-        required=False,
+        required=settings.SUBMISSION_FORM_FIELDS['author']['required'],
         help_text="Name of the author of this work as it appears on your title page"
     )
     subject = forms.CharField(
         label="Subject(s)",
-        required=False,
+        required=settings.SUBMISSION_FORM_FIELDS['subject']['required'],
         help_text="Any topics or subjects as they appear on your title page, separated with commas"
     )
     date = forms.DateField(
         label="Date",
-        required=False,
+        required=settings.SUBMISSION_FORM_FIELDS['date']['required'],
         widget=SelectDateWidget,
         help_text="Date of publication as it appears on your title page"
     )
     abstract = forms.CharField(
         label="Abstract",
-        required=False,
+        required=settings.SUBMISSION_FORM_FIELDS['abstract']['required'],
         widget=forms.Textarea,
         help_text="Abstract of your thesis or dissertation"
     )
@@ -120,9 +120,10 @@ class NewSubmissionForm(forms.Form):
                     'size': self.cleaned_data['document_file'].size,
                     'content_type': self.cleaned_data['document_file'].content_type
                 },
-                'title': self.cleaned_data['title'],
-                'abstract': self.cleaned_data['abstract']
             }
+            for name in ('title', 'author', 'subject', 'date', 'abstract'):
+				if self.cleaned_data[name]:
+					form_record[name] = str(self.cleaned_data[name])
             if self.cleaned_data['supplemental_file']:
                 form_record['supplemental_file'] = {
                     'original_filename': self.cleaned_data['supplemental_file'].name,

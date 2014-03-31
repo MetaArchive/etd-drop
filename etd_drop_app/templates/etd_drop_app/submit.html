@@ -14,29 +14,43 @@
       {{ form.document_file.errors }}
     </div>
 
+    {% if field_settings.supplemental_file.visible %}
     <div class="form-group{% if form.supplemental_file.errors %} has-error{% endif %}">
       <label for="supplemental_file">{{ form.supplemental_file.label }}</label>
       <input class="well" type="file" name="supplemental_file" accept="application/zip">
       <p class="help-block">{{ form.supplemental_file.help_text }}</p>
       {{ form.supplemental_file.errors }}
     </div>
+    {% endif %}
 
+    {% if field_settings.license_file.visible %}
     <div class="form-group{% if form.license_file.errors %} has-error{% endif %}">
       <label for="license_file">{{ form.license_file.label }}</label>
       <input class="well" type="file" name="license_file" accept="application/pdf">
       <p class="help-block">{{ form.license_file.help_text }}</p>
       {{ form.license_file.errors }}
     </div>
+    {% endif %}
 
   </fieldset>
   <fieldset>
     <legend>Metadata</legend>
 
+    {% if field_settings.title.visible %}
     {% bootstrap_field form.title "e.g. Research on the Theory of the Quanta" %}
+    {% endif %}
+    {% if field_settings.author.visible %}
     {% bootstrap_field form.author %}
+    {% endif %}
+    {% if field_settings.subject.visible %}
     {% bootstrap_field form.subject %}
+    {% endif %}
+    {% if field_settings.date.visible %}
     {% bootstrap_field form.date %}
+    {% endif %}
+    {% if field_settings.abstract.visible %}
     {% bootstrap_field form.abstract %}
+    {% endif %}
 
   </fieldset>
   <fieldset>

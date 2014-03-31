@@ -42,7 +42,7 @@ ETD_STORAGE_DIRECTORY = get_env_setting('ETD_STORAGE_DIRECTORY', default=mkdtemp
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440
 
 # Uncomment if you want to get DAITSS Format Description Service output for 
-# submissions
+# submissions (Not implemented yet)
 #DESCRIPTION_SERVICE_URL = "http://localhost:3000"
 
 # Contact info shown on homepage
@@ -67,6 +67,37 @@ It's that easy.
 SUBMISSION_AGREEMENT = """
 By clicking the box below I agree that this submission is complete. Any errors in this submission will require a complete re-submission. Please be sure.
 """
+
+SUBMISSION_FORM_FIELDS = {
+	'supplemental_file': {
+		'visible': True,
+		'required': True,
+	},
+	'license_file': {
+		'visible': True,
+		'required': False,
+	},
+	'title': {
+		'visible': True,
+		'required': True,
+	},
+	'author': {
+		'visible': True,
+		'required': True,
+	},
+	'subject': {
+		'visible': True,
+		'required': False,
+	},
+	'date': {
+		'visible': True,
+		'required': True,
+	},
+	'abstract': {
+		'visible': True,
+		'required': True,
+	},
+}
 
 ################################
 ## END ETD DROP CONFIGURATION ##

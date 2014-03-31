@@ -58,6 +58,7 @@ def submit(request):
 	context = RequestContext(request)
 	context['title'] = "New Submission"
 	context['agreement'] = settings.SUBMISSION_AGREEMENT.strip()
+	context['field_settings'] = settings.SUBMISSION_FORM_FIELDS
 	context['form'] = form
 	return render(request, 'etd_drop_app/submit.html', context)
 
