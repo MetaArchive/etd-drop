@@ -3,9 +3,11 @@
 {% block content %}
 <h3>Download Links</h3>
 <a href="{% url 'etd_drop_app.views.submission_pdf' submission_id %}" class="btn btn-default">Main Document</a>
-<a href="{% url 'etd_drop_app.views.submission_detail' submission_id %}" class="btn btn-default">License Document</a>
 <a href="{% url 'etd_drop_app.views.submission_json' submission_id %}" class="btn btn-default">Form JSON</a>
 <!--a href="{% url 'etd_drop_app.views.submission_detail' submission_id %}" class="btn btn-default">Form XML</a-->
+{% if submission.license_file %}
+<a href="{% url 'etd_drop_app.views.submission_contents' submission_id 'data/license.pdf' %}" class="btn btn-default">License Document</a>
+{% endif %}
 
 <h3>Basic Information and Metadata</h3>
 <table class="table">
@@ -17,6 +19,24 @@
   <tr>
     <th>Title</th>
     <td>{{ submission.title }}</td>
+  </tr>
+  {% endif %}
+  {% if submission.author %}
+  <tr>
+    <th>Author</th>
+    <td>{{ submission.author }}</td>
+  </tr>
+  {% endif %}
+  {% if submission.subject %}
+  <tr>
+    <th>Subject</th>
+    <td>{{ submission.subject }}</td>
+  </tr>
+  {% endif %}
+  {% if submission.date %}
+  <tr>
+    <th>Date</th>
+    <td>{{ submission.date }}</td>
   </tr>
   {% endif %}
   {% if submission.abstract %}

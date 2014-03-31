@@ -16,7 +16,9 @@ urlpatterns = patterns('',
 
     # /submissions (staff only)
     url(r'^submissions$', 'etd_drop_app.views.submissions'),
-    
+
+    # /submissions/[ID]/contents/[path] (staff only)
+    url(r'^submissions/(?P<id>.+)/contents/(?P<path>.+)$', 'etd_drop_app.views.submission_contents'),
     # /submissions/[ID].pdf (staff only)
     url(r'^submissions/(?P<id>.+)\.pdf$', 'etd_drop_app.views.submission_pdf'),
     # /submissions/[ID].json (staff only)

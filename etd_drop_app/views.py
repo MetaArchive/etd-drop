@@ -161,3 +161,33 @@ def submission_json(request, id):
 		return response
 	else:
 		raise Http404
+
+def submission_contents(request, id, path):
+	"""Download a file from the submission directory under the given
+	path"""
+	if not request.user.is_authenticated():
+		messages.warning(request, "You must log in to view this page.")
+		return redirect('/login')
+	if not request.user.is_staff:
+		messages.warning(request, "Forbidden.")
+		return redirect('/')
+
+	if '..' in path:
+		raise Http404
+
+	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
+	file_path = os.path.join(storage_path, id, path)
+	if os.path.isfile(file_path):
+		# Serve the file
+		wrapper = FileWrapper(file(file_path))
+		content_type = 'application/octet-stream'
+		lowerpath = path.lower()
+		if lowerpath.endswith('.pdf'):
+			content_type = 'application/pdf'
+		elif lowerpath.endswith('.json'):
+			content_type = 'application/json'
+		response = HttpResponse(wrapper, content_type=content_type)
+		response['Content-Length'] = os.path.getsize(file_path)
+		return response
+
+	raise Http404
