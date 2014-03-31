@@ -54,13 +54,20 @@ HOMEPAGE_HEADING = "Submit Your Thesis"
 
 # Homepage text
 HOMEPAGE_TEXT = """
-ETD Drop allows our graduate students to easily submit a copy of their thesis or dissertation electronically. After logging in you will be asked to upload your document as a PDF. If you have any supplemental files you will also have the option to submit this content as a ZIP file.
+ETD Drop allows our graduate students to easily submit a copy of their thesis or dissertation electronically.
+
+After logging in you will be asked to upload your document as a PDF. If you have any supplemental files you will also have the option to submit this content as a ZIP file.
 
 If required, please make sure you have a signed and scanned Copyright License in PDF form available to include with your submission.
 
 Lastly, the submission form will ask for your document's title and abstract. You can copy and paste these from your document into the corresponding form inputs.
 
 It's that easy.
+"""
+
+# Homepage text
+FOOTER_TEXT = """
+Footer text
 """
 
 # This is the agreement that will be displayed on the submission page.
