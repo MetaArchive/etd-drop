@@ -9,7 +9,7 @@
       <th>User</th>
       <th>PDF</th>
       <th>JSON</th>
-      <th>XML</th>
+      <!--th>XML</th-->
     </tr>
   </thead>
   <tbody>
@@ -19,7 +19,7 @@
       <td>{{ entry.username }}</td>
       <td><a href="/submissions/{{ entry.identifier }}.pdf">PDF</a></td>
       <td><a href="/submissions/{{ entry.identifier }}.json">JSON</a></td>
-      <td><a href="/submissions/{{ entry.identifier }}.xml">XML</a></td>
+      <!--td><a href="/submissions/{{ entry.identifier }}.xml">XML</a></td-->
     </tr>
   {% endfor %}
   </tbody>
