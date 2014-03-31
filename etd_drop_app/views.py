@@ -13,6 +13,11 @@ from django.core.servers.basehttp import FileWrapper
 from forms import NewSubmissionForm
 
 
+class DefaultContext(RequestContext):
+	def __init__(self, request):
+		super(DefaultContext, self).__init__(request)
+		self['footer_text'] = settings.FOOTER_TEXT.strip()
+
 def login_view(request):
 	context = {
 		'title': getattr(settings, 'HOMEPAGE_HEADING', 'Welcome').strip(),
@@ -44,7 +49,7 @@ def submit(request):
 			result = form.save(request.user)
 			if result:
 				messages.success(request, "Your submission was successfully uploaded.")
-				context = RequestContext(request)
+				context = DefaultContext(request)
 				context['title'] = "Submission Receipt"
 				context['submission_id'] = result
 				return render(request, 'etd_drop_app/receipt.html', context)
@@ -55,7 +60,7 @@ def submit(request):
 	else:
 		form = NewSubmissionForm()
 
-	context = RequestContext(request)
+	context = DefaultContext(request)
 	context['title'] = "New Submission"
 	context['agreement'] = settings.SUBMISSION_AGREEMENT.strip()
 	context['field_settings'] = settings.SUBMISSION_FORM_FIELDS
@@ -83,7 +88,7 @@ def submissions(request):
 			})
 	submissions.sort(key=lambda x: x['identifier'], reverse=True)
 
-	context = RequestContext(request)
+	context = DefaultContext(request)
 	context['title'] = "Submissions"
 	context['submissions'] = submissions
 	return render(request, 'etd_drop_app/submissions.html', context)
@@ -112,7 +117,7 @@ def submission_detail(request, id):
 		with open(manifest_path, 'r') as manifest_file:
 			manifest_string = manifest_file.read()
 
-		context = RequestContext(request)
+		context = DefaultContext(request)
 		context['title'] = "Submission Details"
 		context['submission_id'] = id
 		context['submission'] = json_dict
