@@ -81,6 +81,7 @@ def submissions(request):
 				'identifier': subdir,
 				'username': subdir.split('-', 2)[-1]
 			})
+	submissions.sort(key=lambda x: x['identifier'], reverse=True)
 
 	context = RequestContext(request)
 	context['title'] = "Submissions"
