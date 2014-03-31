@@ -6,6 +6,9 @@
     {{ body_text|linebreaks }}
   </div>
   <div class="col-lg-6">
+    {% if form.errors %}
+    <div class="alert alert-danger">Your username and password didn't match. Please try again.</div>
+    {% endif %}
     <div class="well">
       {% if user.is_authenticated %}
       <p>Logged in as <strong>{{ user.username }}</strong>.</p>
@@ -22,6 +25,7 @@
           <input type="password" name="password" id="password" class="form-control" placeholder="Password">
         </div>
         <button type="submit" class="btn btn-primary">Log In</button>
+        <input type="hidden" name="next" value="{{ next }}" />
       </form>
       {% endif %}
     </div>
