@@ -106,3 +106,8 @@ fieldset {
 input.well {
   margin-bottom: 0;
 }
+
+.footer-logo {
+  max-width: 100%;
+  max-height: 50px;
+}

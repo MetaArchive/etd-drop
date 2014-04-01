@@ -70,6 +70,9 @@ FOOTER_TEXT = """
 Footer text
 """
 
+# Add a URL to a logo image you wish to be displayed in the footer
+LOGO_IMAGE_URL = ""
+
 # This is the agreement that will be displayed on the submission page.
 SUBMISSION_AGREEMENT = """
 By clicking the box below I agree that this submission is complete. Any errors in this submission will require a complete re-submission. Please be sure.

@@ -17,6 +17,7 @@ class DefaultContext(RequestContext):
 	def __init__(self, request):
 		super(DefaultContext, self).__init__(request)
 		self['footer_text'] = settings.FOOTER_TEXT.strip()
+		self['logo_image'] = settings.LOGO_IMAGE_URL.strip()
 
 def login_view(request):
 	context = {
@@ -25,6 +26,7 @@ def login_view(request):
 		'contact_phone': getattr(settings, 'CONTACT_PHONE', '').strip(),
 		'contact_email': getattr(settings, 'CONTACT_EMAIL', '').strip(),
 		'footer_text': settings.FOOTER_TEXT.strip(),
+		'logo_image': settings.LOGO_IMAGE_URL,
 	}
 	return login(request, extra_context=context)
 
