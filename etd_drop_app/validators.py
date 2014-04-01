@@ -7,6 +7,9 @@ class MimetypeValidator(object):
 		self.mimetypes = mimetypes
 	
 	def __call__(self, value):
-		mime = magic.from_buffer(value.read(1024), mime=True)
-		if not mime in self.mimetypes:
-			raise ValidationError('%s is not an acceptable file type' % value)
+		try:
+			mime = magic.from_buffer(value.read(1024), mime=True)
+			if not mime in self.mimetypes:
+				raise ValidationError('%s is not an acceptable file type' % value)
+		except AttributeError as e:
+			raise ValidationError('This value could not be validated for file type' % value)
