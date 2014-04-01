@@ -22,7 +22,7 @@ class NewSubmissionForm(forms.Form):
         label="Main PDF File",
         required=True,
         allow_empty_file=False,
-        validators=[MimetypeValidator('application/pdf')],
+        validators=[MimetypeValidator(('application/pdf'))],
         help_text="Upload a PDF version of your thesis or dissertation. "
         "Please take care to ensure that any custom fonts are properly "
         "embedded and that your PDF displays correctly on different devices "
@@ -32,7 +32,7 @@ class NewSubmissionForm(forms.Form):
         label="Supplemental Data",
         required=settings.SUBMISSION_FORM_FIELDS['supplemental_file']['required'],
         allow_empty_file=False,
-        validators=[MimetypeValidator('application/zip')],
+        validators=[MimetypeValidator(('application/zip'))],
         help_text="Upload a ZIP file containing any supplemental "
         "files you wish to deposit along with your thesis or dissertation."
     )
@@ -40,7 +40,7 @@ class NewSubmissionForm(forms.Form):
         label="License Agreement",
         required=settings.SUBMISSION_FORM_FIELDS['license_file']['required'],
         allow_empty_file=False,
-        validators=[MimetypeValidator('application/pdf')],
+        validators=[MimetypeValidator(('application/pdf'))],
         help_text="Upload a signed copy of a copyright license "
         "agreement, as per the policy of your institution."
     )
