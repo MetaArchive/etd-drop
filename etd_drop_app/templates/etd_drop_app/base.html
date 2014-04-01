@@ -54,7 +54,7 @@
 
       <div class="footer">
         <div class="row">
-          <div class="col-lg-4">{% if logo_image %}<img src="{{ logo_image }}" class="footer-logo">{% endif %}</div>
+          {% if logo_image %}<div class="col-lg-4"><img src="{{ logo_image }}" class="footer-logo"></div>{% endif %}
           <div class="col-lg-8">{{ footer_text|linebreaks }}</div>
         </div>
       </div>
