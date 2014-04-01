@@ -33,6 +33,9 @@ def get_env_setting(setting, default=None, required=False):
 ETD_STORAGE_DIRECTORY = get_env_setting('ETD_STORAGE_DIRECTORY', default=mkdtemp(prefix="etd-drop"))
 #ETD_STORAGE_DIRECTORY = "/data/submissions"
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = get_env_setting('DJANGO_SECRET_KEY', default=None)
+
 # Set this to where you want large files to be temporarily kept during upload
 # (Defaults to /tmp on Unix-like systems)
 #FILE_UPLOAD_TEMP_DIR = "/data/tmp"
@@ -65,7 +68,7 @@ Lastly, the submission form will ask for your document's title and abstract. You
 It's that easy.
 """
 
-# Homepage text
+# Footer text
 FOOTER_TEXT = """
 Footer text
 """
@@ -120,9 +123,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8j0yk=h17!#5)io)-23g(_)9rw!h3@lrf-aht%tvx4g*t*@7yq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(get_env_setting('DJANGO_DEBUG', default=False)))
