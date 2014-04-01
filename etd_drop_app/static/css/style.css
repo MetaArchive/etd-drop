@@ -111,3 +111,8 @@ input.well {
   max-width: 100%;
   max-height: 50px;
 }
+
+h3.text-muted > a {
+  color: inherit;
+  text-decoration: inherit;
+}
