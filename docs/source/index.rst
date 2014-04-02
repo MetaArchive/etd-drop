@@ -22,6 +22,7 @@ For System Administrators / I.T.
    technical_overview
    installation
    configuration
+   user_management
 
 .. _staff-docs:
 
@@ -32,6 +33,7 @@ For ETD Program Staff
    :maxdepth: 2
 
    managing_submissions
+   suggested_workflow
 
 .. _user-docs:
 
@@ -41,4 +43,4 @@ For End Users / Students
 .. toctree::
    :maxdepth: 2
 
-	submitting
+   submitting_an_etd
