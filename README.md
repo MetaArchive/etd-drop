@@ -1,77 +1,23 @@
-# ETD Drop (Django)
+# ETD Drop
+
+**This software is still being developed and is not ready for production use.**
 
 ## Overview
 
 ETD Drop is a Django project+app providing a simple web application for
 submitting Electronic Theses and Dissertations (ETDs).
 
-### Storage and Database Requirements
+## Documentation
 
-ETD Drop does not use any database operations for storing its data. ETD 
-submissions are immediately processed into BagIt bags stored on disk, and
-lookups take place simply by scanning the directory where they are stored.
-The storage location is defined in `etd_drop/settings.py` (see Configuration
-below).
+You can find the ETD Drop documentation online on Read The Docs:
 
-A database is needed by the default Django authentication system, though you 
-could substitute your own authentication system in its place and potentially
-avoid needing any kind of database at all.
+http://premis-event-service.readthedocs.org/en/latest/installation.html
 
-Database connection options are handled in `etd_drop/settings.py`. By default,
-a SQLite database will be created and used.
-
-
-## Project Directory Structure
-
-    etd-drop-django/
-    ├── etd_drop/         # Django project files
-    │   ├── settings.py   ## Project settings
-    ├── etd_drop_app      # Main Django application code
-    │   ├── forms.py      ## Form processing code
-    │   ├── static/       ## Static resources (CSS and images)
-    │   ├── templates/    ## HTML templates
-    │   ├── urls.py       ## URL routing patterns
-    │   ├── views.py      ## View generation code
-    ├── LICENSE           # Source code license
-    ├── manage.py         # Project management script
-    ├── README.md         # Project README
-    └── requirements.txt  # pip package dependencies
-
-
-## Installation and Local Testing
-
-Note: You will want to have Python 2.7.4 and virtualenv installed before
-continuing.
-
-### Initial Setup
-
-1. Clone this repository on your local filesystem, probably somewhere within 
-   your user's home directory.
-2. `cd` into this repository's directory.
-3. Create a new virtual environment here: `virtualenv.py venv`
-4. Edit `etd_drop/settings.py` in a code or plain text editor and set up your 
-   any settings you need to override (see the Configuration section below).
-
-### Each Time You Begin a New Work Session
-
-1. `cd` into this repository's directory.
-2. Activate your virtual environment: `source venv/bin/activate`
-3. (Optional) Pull latest changes from git: `git pull`
-4. Install/update dependencies: `pip install -Ur requirements.txt`
-5. Ensure that the database is set up: `python manage.py syncdb`
-
-**Note:** If this is your first time running the *syncdb* command, a new 
-SQLite database will be generated, and you will be prompted to create a new
-administrative account. Follow the prompts and provide a username and password 
-for this new account. (You can leave the "email" field blank.)
-
-### Running a Local Server
-
-1. `cd` into this repository's directory.
-2. Activate your virtual environment: `source venv/bin/activate`
-3. Start the development server: `DJANGO_DEBUG=1 python manage.py runserver`
-4. When you wish to stop the server, use CTRL+C in the terminal window.
-
+The documentation is also browsable locally, within the `docs/source` 
+directory of this repository. To build a local HTML version viewable offline, 
+`cd` to the `docs` directory and run `make html`, and then open 
+`docs/build/html/index.html`. (Be sure to have the dependencies listed in 
+`requirements.txt` available before running `make html`.)
 
 ## Developers
 

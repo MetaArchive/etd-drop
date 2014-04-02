@@ -2,6 +2,10 @@
 Technical Overview
 ==================
 
+.. contents::
+    :local:
+    :depth: 2
+
 ETD Drop is a simple web application for accepting online submissions of
 electronic theses and dissertations (ETDs), written in Django.
 Submissions are saved to a configurable location on disk in an easy to 
@@ -44,3 +48,23 @@ take place:
 You might recognize this structure as a BagIt bag. The submission package is 
 stored in this format to allow for easier management and the ability to verify 
 file checksums at a later point in time.
+
+Project Source Code Layout
+--------------------------
+
+The general structure of this repository is as follows:
+
+    etd-drop/             # Top level git repository
+    ├── docs/             ## Documentation (uses Sphinx Docs)
+    ├── etd_drop/         ## Django project files
+    │   ├── settings.py   ### Project settings
+    ├── etd_drop_app      ## Main Django application code
+    │   ├── forms.py      ### Form processing code
+    │   ├── static/       ### Static resources (CSS and images)
+    │   ├── templates/    ### HTML templates
+    │   ├── urls.py       ### URL routing patterns
+    │   ├── views.py      ### View generation code
+    ├── LICENSE           ## Source code license
+    ├── manage.py         ## Project management script
+    ├── README.md         ## Project README
+    └── requirements.txt  ## pip package dependencies
