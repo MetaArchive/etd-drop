@@ -159,6 +159,14 @@ class NewSubmissionForm(forms.Form):
             os.rename(staging_path, final_path)
             
             # Fire any emails/notifications/webhooks the institution wants to receive
+            try:
+                recipients = getattr(settings, 'SUBMISSION_EMAIL_RECIPIENTS', None)
+                if recipients:
+                    subject = "New ETD Submission"
+                    body = "New submission came in!"
+                    sender = settings.SUBMISSION_EMAIL_FROM_ADDRESS
+                    send_mail(subject, body, sender, recipients)
+
             # TODO
 
             # Return the id to signify success to the caller
