@@ -52,7 +52,7 @@ file checksums at a later point in time.
 Project Source Code Layout
 --------------------------
 
-The general structure of this repository is as follows:
+The general structure of this repository is as follows::
 
     etd-drop/             # Top level git repository
     ├── docs/             ## Documentation (uses Sphinx Docs)
