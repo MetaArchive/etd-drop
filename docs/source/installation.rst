@@ -8,6 +8,10 @@ minor database-related setup and some Python package dependencies. Popular
 ways of running Django apps include gunicorn, nginx (with uwsgi), and Apache 
 (with mod_wsgi).
 
+.. contents::
+    :local:
+    :depth: 2
+
 System Requirements
 ===================
 
