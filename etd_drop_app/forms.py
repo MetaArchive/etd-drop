@@ -166,8 +166,10 @@ class NewSubmissionForm(forms.Form):
                     body = "New submission came in!"
                     sender = settings.SUBMISSION_EMAIL_FROM_ADDRESS
                     send_mail(subject, body, sender, recipients)
-
-            # TODO
+            except Exception as e:
+                # Log this email failure
+                # TODO
+                pass
 
             # Return the id to signify success to the caller
             return etd_id
