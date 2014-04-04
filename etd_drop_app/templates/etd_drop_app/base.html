@@ -33,6 +33,9 @@
           {% if user.is_staff %}
           <li><a href="{% url 'etd_drop_app.views.submissions' %}">Submissions</a></li>
           {% endif %}
+          {% if user.is_superuser %}
+          <li><a href="/admin/">Admin</a></li>
+          {% endif %}
           {% if user.is_authenticated %}
           <li><a href="{% url 'etd_drop_app.views.logout_view' %}">Log Out ({{ user.username }})</a></li>
           {% else %}
