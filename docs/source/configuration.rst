@@ -47,6 +47,15 @@ See: https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
 DATABASES
 ---------
 
+Specifies the connection information Django should use for all of its 
+database operations (in the case of ETD Drop, this is for users/sessions).
+
+By default, this is configured to use a SQLite3 file located in the project 
+directory (which will be created automatically if it doesn't exist). 
+SQLite3 should be sufficient for the needs of this application, but you may 
+still prefer to change these settings to use an external database (e.g. MySQL) 
+instead.
+
 See: https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DEBUG
