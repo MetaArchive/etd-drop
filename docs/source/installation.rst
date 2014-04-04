@@ -61,10 +61,10 @@ There are many approaches and choices to consider when deploying a Django
 project on a real server. The general strategy is something like the 
 following:
 
-* Incoming requests are proxied by Nginx (which also directly serves static 
-  assets belonging to the project)
-* Nginx forwards requests on to a WSGI server (like uWSGI or Gunicorn)
-* The WSGI server handles the request and displays the page
+1. Incoming requests are proxied by Nginx (which also directly serves static 
+   assets belonging to the project)
+2. Nginx forwards requests on to a WSGI server (like uWSGI or Gunicorn)
+3. The WSGI server handles the request and displays the page
 
 If you would prefer to use Apache, you should use mod_wsgi and refer to 
 `this page <https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/modwsgi/>`_
@@ -82,7 +82,7 @@ equipped Linux environment.
 
 First, let's make sure everything we need is installed::
 
-    sudo apt-get install -y nginx git
+    sudo apt-get install -y nginx git python-virtualenv
 
 Setting up ETD Drop in a Virtualenv
 -----------------------------------
