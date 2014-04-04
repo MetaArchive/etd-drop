@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.core.servers.basehttp import FileWrapper
+from django.core.exceptions import PermissionDenied
 
 from forms import NewSubmissionForm
 
@@ -77,7 +78,7 @@ def submissions(request):
 		return redirect('/login')
 	if not request.user.is_staff:
 		messages.warning(request, "Forbidden.")
-		return redirect('/')
+		raise PermissionDenied
 
 	submissions = []
 	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
@@ -103,7 +104,7 @@ def submission_detail(request, id):
 		return redirect('/login')
 	if not request.user.is_staff:
 		messages.warning(request, "Forbidden.")
-		return redirect('/')
+		raise PermissionDenied
 
 	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
 	json_path = os.path.join(storage_path, id, 'data', 'form.json')
@@ -137,7 +138,7 @@ def submission_pdf(request, id):
 		return redirect('/login')
 	if not request.user.is_staff:
 		messages.warning(request, "Forbidden.")
-		return redirect('/')
+		raise PermissionDenied
 
 	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
 	pdf_path = os.path.join(storage_path, id, 'data', 'etd.pdf')
@@ -157,7 +158,7 @@ def submission_json(request, id):
 		return redirect('/login')
 	if not request.user.is_staff:
 		messages.warning(request, "Forbidden.")
-		return redirect('/')
+		raise PermissionDenied
 
 	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
 	file_path = os.path.join(storage_path, id, 'data', 'form.json')
@@ -178,7 +179,7 @@ def submission_contents(request, id, path):
 		return redirect('/login')
 	if not request.user.is_staff:
 		messages.warning(request, "Forbidden.")
-		return redirect('/')
+		raise PermissionDenied
 
 	if '..' in path:
 		raise Http404
