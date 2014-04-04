@@ -24,6 +24,9 @@ def get_env_setting(setting, default=None, required=False):
             raise ImproperlyConfigured(error_msg)
         return default
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 ########################
 ## CORE CONFIGURATION ##
 ########################
@@ -160,10 +163,6 @@ SUBMISSION_FORM_FIELDS = {
 ################################
 ## END ETD DROP CONFIGURATION ##
 ################################
-
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 TEMPLATE_DEBUG = bool(int(get_env_setting('DJANGO_DEBUG', default=False)))
 
