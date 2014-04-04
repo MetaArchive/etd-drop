@@ -52,6 +52,12 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440
 CONTACT_PHONE = "(000) 000-0000"
 CONTACT_EMAIL = "example@domain.edu"
 
+# List of email addresses to receive emails when submissions are received
+EMAIL_LIST = [
+    # "example1@domain.edu",
+    # "example2@domain.edu",
+]
+
 # Homepage heading
 HOMEPAGE_HEADING = "Submit Your Thesis"
 
@@ -82,34 +88,34 @@ By clicking the box below I agree that this submission is complete. Any errors i
 """
 
 SUBMISSION_FORM_FIELDS = {
-	'supplemental_file': {
-		'visible': True,
-		'required': False,
-	},
-	'license_file': {
-		'visible': True,
-		'required': False,
-	},
-	'title': {
-		'visible': True,
-		'required': True,
-	},
-	'author': {
-		'visible': True,
-		'required': True,
-	},
-	'subject': {
-		'visible': True,
-		'required': False,
-	},
-	'date': {
-		'visible': True,
-		'required': False,
-	},
-	'abstract': {
-		'visible': True,
-		'required': True,
-	},
+    'supplemental_file': {
+        'visible': True,
+        'required': False,
+    },
+    'license_file': {
+        'visible': True,
+        'required': False,
+    },
+    'title': {
+        'visible': True,
+        'required': True,
+    },
+    'author': {
+        'visible': True,
+        'required': True,
+    },
+    'subject': {
+        'visible': True,
+        'required': False,
+    },
+    'date': {
+        'visible': True,
+        'required': False,
+    },
+    'abstract': {
+        'visible': True,
+        'required': True,
+    },
 }
 
 ################################
@@ -127,6 +133,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(get_env_setting('DJANGO_DEBUG', default=False)))
 TEMPLATE_DEBUG = bool(int(get_env_setting('DJANGO_DEBUG', default=False)))
+
+# Tolerate lack of SECRET_KEY when using DEBUG mode
+if DEBUG and not SECRET_KEY:
+    SECRET_KEY = "This key is for debug mode, only!"
 
 # You must set this setting in production!
 ALLOWED_HOSTS = ['localhost']
@@ -177,6 +187,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 STATIC_URL = '/static/'
+STATIC_ROOT = '/srv/www/etd-drop/static/'
 
 # Post-login redirect behavior
 LOGIN_REDIRECT_URL = '/submit'
