@@ -9,31 +9,59 @@ ETD Drop is configured using values defined in the ``settings.py`` file in the
     :local:
     :depth: 2
 
+Environment Variables
+=====================
+
+For ease of deployment or local testing, some configuration values can be set 
+using environment variables. Environment variables can be set up in web server 
+configurations (like Apache and Nginx), set in your personal .bashrc 
+or .profile files for easy personal use, or stated at the beginning of a 
+terminal command (for example: ``DJANGO_DEBUG=1 python manage.py runserver``).
+
+DJANGO_DEBUG
+------------
+
+Accepted values: 1 (meaning debug mode is on) or 0 (meaning debug mode is off)
+
+Overrides the default DEBUG setting.
+
+DJANGO_SECRET_KEY
+-----------------
+
+Accepted values: Any string
+
+Overrides the SECRET_KEY setting, which should be set to a long, randomized 
+string of characters used for security purposes (see the SECRET_KEY section 
+later in this page).
+
 Core settings
 =============
 
 These are standard Django settings you will want to pay special attention to:
 
-SECRET_KEY
-----------
+ALLOWED_HOSTS
+-------------
 
-Default: ``SECRET_KEY = get_env_setting('DJANGO_SECRET_KEY', default=None)``
+See: https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
 
-A string containing a unique, unpredictable set of characters known only to 
-the server.
+DATABASES
+---------
 
-The default value attempts to do two things:
+See: https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-1. If an environment variable called DJANGO_SECRET_KEY is set, it will use 
-   that value for this setting.
-2. Otherwise, the setting will be set to ``None`` and the application will 
-   not be able to start.
+DEBUG
+-----
 
-One way of generating a good random key is using the following command::
+Default: bool(int(get_env_setting('DJANGO_DEBUG', default=False)))
 
-    python -c 'import random; import string; print "".join([random.SystemRandom().choice(string.digits + string.letters + string.punctuation) for i in range(100)])'
+A boolean (True or False) value that decides if Django should run in "debug" 
+mode. In debug mode, Django runs with fewer security restrictions and allows 
+detailed error messages to be displayed in the browser. **It is very 
+important not to use debug mode in production environments.**
 
-See: https://docs.djangoproject.com/en/1.6/ref/settings/#std:setting-SECRET_KEY
+The default value of DEBUG attempts to load the setting from an environment 
+variable named DJANGO_DEBUG (which should be set to 1 if True or 0 if False). 
+If this environment variable is not set, False will be used by default.
 
 FILE_UPLOAD_TEMP_DIR
 --------------------
@@ -58,6 +86,34 @@ This results in faster uploads, but will consume more system memory during
 uploads depending on how high this limit is set.
 
 Note: 2621440 bytes = 2.5 MB
+
+SECRET_KEY
+----------
+
+Default: ``SECRET_KEY = get_env_setting('DJANGO_SECRET_KEY', default=None)``
+
+A string containing a unique, unpredictable set of characters known only to 
+the server.
+
+The default value attempts to do two things:
+
+1. If an environment variable called DJANGO_SECRET_KEY is set, it will use 
+   that value for this setting.
+2. Otherwise, the setting will be set to ``None`` and the application will 
+   not be able to start.
+
+One way of generating a good random key is using the following command::
+
+    python -c 'import random; import string; print "".join([random.SystemRandom().choice(string.digits + string.letters + string.punctuation) for i in range(100)])'
+
+See: https://docs.djangoproject.com/en/1.6/ref/settings/#std:setting-SECRET_KEY
+
+TIME_ZONE
+---------
+
+Default: 'UTC'
+
+See: https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 ETD Drop settings
 =================

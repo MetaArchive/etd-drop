@@ -14,7 +14,6 @@ from tempfile import mkdtemp
 
 from django.core.exceptions import ImproperlyConfigured
 
-
 def get_env_setting(setting, default=None, required=False):
     """ Get the environment setting or return exception """
     try:
@@ -25,24 +24,54 @@ def get_env_setting(setting, default=None, required=False):
             raise ImproperlyConfigured(error_msg)
         return default
 
-############################
-## ETD DROP CONFIGURATION ##
-############################
+########################
+## CORE CONFIGURATION ##
+########################
+# For official Django production deployment information, see:
+# https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-# Set this to where you want the submission packages to go
-ETD_STORAGE_DIRECTORY = get_env_setting('ETD_STORAGE_DIRECTORY', default=mkdtemp(prefix="etd-drop"))
-#ETD_STORAGE_DIRECTORY = "/data/submissions"
+# You must set this setting in production!
+# https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_env_setting('DJANGO_SECRET_KEY', default=None)
+# Database connection information
+# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+# SECURITY WARNING: don't run with debug turned on in production!
+# https://docs.djangoproject.com/en/1.6/ref/settings/#debug
+DEBUG = bool(int(get_env_setting('DJANGO_DEBUG', default=False)))
 
 # Set this to where you want large files to be temporarily kept during upload
 # (Defaults to /tmp on Unix-like systems)
-#FILE_UPLOAD_TEMP_DIR = "/data/tmp"
+# FILE_UPLOAD_TEMP_DIR = "/data/tmp"
 
 # Files smaller than this size (in bytes) will be uploaded to memory instead 
 # of the FILE_UPLOAD_TEMP_DIR location. (Defaults to 2621440, which is 2.5 MB)
-FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440
+# FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440
+
+# SECURITY WARNING: keep the secret key used in production secret!
+# https://docs.djangoproject.com/en/1.6/ref/settings/#secret-key
+SECRET_KEY = get_env_setting('DJANGO_SECRET_KEY', default=None)
+
+# https://docs.djangoproject.com/en/1.6/topics/i18n/
+TIME_ZONE = 'UTC'
+
+############################
+## END CORE CONFIGURATION ##
+############################
+
+############################
+## ETD DROP CONFIGURATION ##
+############################
+# Set this to where you want the submission packages to go
+# e.g. ETD_STORAGE_DIRECTORY = "/data/submissions"
+ETD_STORAGE_DIRECTORY = get_env_setting('ETD_STORAGE_DIRECTORY', default=mkdtemp(prefix="etd-drop"))
 
 # Uncomment if you want to get DAITSS Format Description Service output for 
 # submissions (Not implemented yet)
@@ -126,21 +155,11 @@ SUBMISSION_FORM_FIELDS = {
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(get_env_setting('DJANGO_DEBUG', default=False)))
 TEMPLATE_DEBUG = bool(int(get_env_setting('DJANGO_DEBUG', default=False)))
 
 # Tolerate lack of SECRET_KEY when using DEBUG mode
 if DEBUG and not SECRET_KEY:
     SECRET_KEY = "This key is for debug mode, only!"
-
-# You must set this setting in production!
-ALLOWED_HOSTS = ['localhost']
-
 
 # Application definition
 INSTALLED_APPS = (
@@ -165,20 +184,9 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'etd_drop.urls'
 WSGI_APPLICATION = 'etd_drop.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
