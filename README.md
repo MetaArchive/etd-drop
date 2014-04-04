@@ -11,7 +11,7 @@ submitting Electronic Theses and Dissertations (ETDs).
 
 You can find the ETD Drop documentation online on Read The Docs:
 
-http://premis-event-service.readthedocs.org/en/latest/installation.html
+http://premis-event-service.readthedocs.org/
 
 The documentation is also browsable locally, within the `docs/source` 
 directory of this repository. To build a local HTML version viewable offline, 
@@ -19,18 +19,6 @@ directory of this repository. To build a local HTML version viewable offline,
 `docs/build/html/index.html`. (Be sure to have the dependencies listed in 
 `requirements.txt` available before running `make html`.)
 
-## Developers
+## License
 
-Here are some notes in case you're doing some development work on this project.
-
-### Adding or Changing Module Dependencies
-
-If you install any new Python modules using `pip install` or if you choose to
-bump any of the versions of currently used modules, you will want to update the
-requirements.txt file accordingly.  This is easily done with the following
-command:
-
-    $ pip freeze > requirements.txt
-
-This will overwrite the current requirements.txt with a new one based on the
-modules and versions currently installed in the virtualenv.
+See LICENSE
