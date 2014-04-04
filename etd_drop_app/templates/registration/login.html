@@ -2,10 +2,10 @@
 
 {% block content %}
 <div class="row marketing">
-  <div class="col-lg-6">
+  <div class="col-sm-6">
     {{ body_text|linebreaks }}
   </div>
-  <div class="col-lg-6">
+  <div class="col-sm-6">
     {% if form.errors %}
     <div class="alert alert-danger">Your username and password didn't match. Please try again.</div>
     {% endif %}
