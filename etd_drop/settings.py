@@ -47,6 +47,16 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.6/ref/settings/#debug
 DEBUG = bool(int(get_env_setting('DJANGO_DEBUG', default=False)))
 
+# Email server settings (for sending notification emails to staff)
+# https://docs.djangoproject.com/en/1.6/ref/settings/#email-backend
+# https://docs.djangoproject.com/en/1.6/topics/email/#smtp-backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = ''
+EMAIL_PORT = 25
+EMAIL_USE_TLS = False
+
 # Set this to where you want large files to be temporarily kept during upload
 # (Defaults to /tmp on Unix-like systems)
 # FILE_UPLOAD_TEMP_DIR = "/data/tmp"

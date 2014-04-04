@@ -63,6 +63,53 @@ The default value of DEBUG attempts to load the setting from an environment
 variable named DJANGO_DEBUG (which should be set to 1 if True or 0 if False). 
 If this environment variable is not set, False will be used by default.
 
+EMAIL_BACKEND
+-------------
+
+Default: 'django.core.mail.backends.smtp.EmailBackend'
+
+The Django email backend to use for sending email. SMTP is the default, which 
+is the most commonly-used server type for sending email.
+
+For a full list of possible backends, see: 
+https://docs.djangoproject.com/en/1.6/topics/email/#smtp-backend
+
+See general information about this setting, see:
+https://docs.djangoproject.com/en/1.6/ref/settings/#email-backend
+
+EMAIL_HOST
+----------
+
+Default: 'localhost'
+
+Hostname of SMTP server (or other selected backend type).
+
+EMAIL_HOST_PASSWORD
+-------------------
+
+Default: ''
+
+Password for authenticating with SMTP server (or other selected backend type).
+
+EMAIL_HOST_USER
+---------------
+
+Default: ''
+
+Username for authenticating with SMTP server (or other selected backend type).
+
+EMAIL_PORT
+----------
+
+Default: 25
+
+EMAIL_USE_TLS
+-------------
+
+Default: ``False``
+
+See: https://docs.djangoproject.com/en/1.6/ref/settings/#email-use-tls
+
 FILE_UPLOAD_TEMP_DIR
 --------------------
 
