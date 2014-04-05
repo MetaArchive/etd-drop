@@ -95,10 +95,13 @@ CONTACT_PHONE = "(000) 000-0000"
 CONTACT_EMAIL = "example@domain.edu"
 
 # List of email addresses to receive emails when submissions are received
-EMAIL_LIST = [
+SUBMISSION_EMAIL_RECIPIENTS = [
     # "example1@domain.edu",
     # "example2@domain.edu",
 ]
+
+# "From" address used for submission notification emails sent to staff
+SUBMISSION_EMAIL_FROM_ADDRESS = "noreply@domain.edu"
 
 # Homepage heading
 HOMEPAGE_HEADING = "Submit Your Thesis"
@@ -124,11 +127,12 @@ Footer text
 # Add a URL to a logo image you wish to be displayed in the footer
 LOGO_IMAGE_URL = ""
 
-# This is the agreement that will be displayed on the submission page.
+# This is the agreement that will be displayed on the submission form
 SUBMISSION_AGREEMENT = """
 By clicking the box below I agree that this submission is complete. Any errors in this submission will require a complete re-submission. Please be sure.
 """
 
+# Determines which fields are visible/mandatory in the submission form
 SUBMISSION_FORM_FIELDS = {
     'supplemental_file': {
         'visible': True,

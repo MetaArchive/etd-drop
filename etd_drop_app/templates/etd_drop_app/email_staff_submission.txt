@@ -1,0 +1,10 @@
+ETD Drop has received a new submission:
+
+Submission time: {{ submission_time }}
+Username: {{ username }}
+Identifier: {{ identifier }}
+Details URL: {% url 'etd_drop_app.views.submission_detail' identifier %}
+
+To browse all current submission, visit:
+
+{% url 'etd_drop_app.views.submissions' %}

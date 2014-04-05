@@ -8,6 +8,7 @@ from datetime import datetime
 from django import forms, template
 from django.conf import settings
 from django.forms.extras import SelectDateWidget
+from django.template.loader import render_to_string
 
 import bagit
 
@@ -162,8 +163,15 @@ class NewSubmissionForm(forms.Form):
             try:
                 recipients = getattr(settings, 'SUBMISSION_EMAIL_RECIPIENTS', None)
                 if recipients:
-                    subject = "New ETD Submission"
-                    body = "New submission came in!"
+                    subject = "[ETD Drop] New ETD submission"
+                    body = render_to_string(
+                        'etd_drop_app/email_staff_submission.txt', 
+                        {
+                            'submission_time': datestamp,
+                            'username': author.username,
+                            'identifier': etd_id,
+                        }
+                    )
                     sender = settings.SUBMISSION_EMAIL_FROM_ADDRESS
                     send_mail(subject, body, sender, recipients)
             except Exception as e:

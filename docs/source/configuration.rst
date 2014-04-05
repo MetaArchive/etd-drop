@@ -223,6 +223,22 @@ A string containing an email address that will be displayed on the homepage
 for users to email if they need help. If this setting is blank or undefined, 
 the email address will be hidden.
 
+SUBMISSION_EMAIL_RECIPIENTS
+---------------------------
+
+Default: ``[]``
+
+A list of strings representing email addresses to notify when a new submission 
+is received. If this list is empty, no email will be sent.
+
+SUBMISSION_EMAIL_FROM_ADDRESS
+----------------------------- 
+
+Default: "noreply@domain.edu"
+
+A string containing the email address that will appear in the "From" header 
+for notification emails sent by ETD Drop.
+
 HOMEPAGE_HEADING
 ----------------
 
