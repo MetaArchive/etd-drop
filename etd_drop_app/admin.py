@@ -21,7 +21,7 @@ class CustomUserAdmin(UserAdmin):
             'date_joined',
         )}),
     )
-    readonly_fields = ('username', 'date_joined', 'last_login')
+    readonly_fields = ('date_joined', 'last_login')
     list_display = (
         'username', 
         #'email', 
