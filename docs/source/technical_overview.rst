@@ -49,6 +49,38 @@ You might recognize this structure as a BagIt bag. The submission package is
 stored in this format to allow for easier management and the ability to verify 
 file checksums at a later point in time.
 
+Form Data Representation
+------------------------
+
+Along with the uploaded files, ETD Drop includes a JSON document containing 
+the values given by the user via the submission form (along with some basic 
+metadata relating to the files that were uploaded). The document is stored as 
+``form.json`` and is found within the ``data`` directory of a submission 
+package. This document is small and should be easy to parse (even for a 
+human). The presence of individual keys will depend on which form fields were 
+enabled in ``settings.py`` and what was actually provided by the user. Here 
+is a sample of the contents of a typical ``form.json``::
+
+    {
+      "document_file": {
+        "content_type": "application/pdf", 
+        "original_filename": "thesis.pdf", 
+        "size": 2149036
+      }, 
+      "license_file": {
+        "content_type": "application/pdf", 
+        "original_filename": "license.pdf", 
+        "size": 81439
+      }, 
+      "description": "Sample description.", 
+      "supplemental_file": {
+        "content_type": "application/zip", 
+        "original_filename": "supplemental_data.zip", 
+        "size": 5181242
+      }, 
+      "title": "Sample Title"
+    }
+
 Project Source Code Layout
 ==========================
 
