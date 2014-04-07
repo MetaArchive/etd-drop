@@ -23,6 +23,8 @@ urlpatterns = patterns('',
     url(r'^submissions/(?P<id>.+)\.pdf$', 'etd_drop_app.views.submission_pdf'),
     # /submissions/[ID].json (staff only)
     url(r'^submissions/(?P<id>.+)\.json$', 'etd_drop_app.views.submission_json'),
+    # /submissions/[ID].xml (staff only)
+    url(r'^submissions/(?P<id>.+)\.xml$', 'etd_drop_app.views.submission_xml'),
     # /submissions/[ID] (staff only)
     url(r'^submissions/(?P<id>.+)$', 'etd_drop_app.views.submission_detail'),
 )

@@ -171,6 +171,26 @@ def submission_json(request, id):
 	else:
 		raise Http404
 
+def submission_xml(request, id):
+	"""Direct XML download for a single submission."""
+	if not request.user.is_authenticated():
+		messages.warning(request, "You must log in to view this page.")
+		return redirect('/login')
+	if not request.user.is_staff:
+		messages.warning(request, "Forbidden.")
+		raise PermissionDenied
+
+	storage_path = os.path.abspath(settings.ETD_STORAGE_DIRECTORY)
+	file_path = os.path.join(storage_path, id, 'data', 'form.xml')
+	if os.path.isfile(file_path):
+		# Serve the file
+		wrapper = FileWrapper(file(file_path))
+		response = HttpResponse(wrapper, content_type='application/xml')
+		response['Content-Length'] = os.path.getsize(file_path)
+		return response
+	else:
+		raise Http404
+
 def submission_contents(request, id, path):
 	"""Download a file from the submission directory under the given
 	path"""

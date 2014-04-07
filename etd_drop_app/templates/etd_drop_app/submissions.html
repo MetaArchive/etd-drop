@@ -9,17 +9,17 @@
       <th>User</th>
       <th>PDF</th>
       <th>JSON</th>
-      <!--th>XML</th-->
+      <th>XML</th>
     </tr>
   </thead>
   <tbody>
   {% for entry in submissions %}
     <tr>
-      <td><a href="/submissions/{{ entry.identifier }}">{{ entry.identifier }}</a></td>
+      <td><a href="{% url 'etd_drop_app.views.submission_detail' entry.identifier %}">{{ entry.identifier }}</a></td>
       <td>{{ entry.username }}</td>
-      <td><a href="/submissions/{{ entry.identifier }}.pdf">PDF</a></td>
-      <td><a href="/submissions/{{ entry.identifier }}.json">JSON</a></td>
-      <!--td><a href="/submissions/{{ entry.identifier }}.xml">XML</a></td-->
+      <td><a href="{% url 'etd_drop_app.views.submission_pdf' entry.identifier %}">PDF</a></td>
+      <td><a href="{% url 'etd_drop_app.views.submission_json' entry.identifier %}">JSON</a></td>
+      <td><a href="{% url 'etd_drop_app.views.submission_xml' entry.identifier %}">XML</a></td>
     </tr>
   {% endfor %}
   </tbody>

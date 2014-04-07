@@ -4,6 +4,7 @@
 <h3>Download Links</h3>
 <a href="{% url 'etd_drop_app.views.submission_pdf' submission_id %}" class="btn btn-default">Main Document</a>
 <a href="{% url 'etd_drop_app.views.submission_json' submission_id %}" class="btn btn-default">Form JSON</a>
+<a href="{% url 'etd_drop_app.views.submission_xml' submission_id %}" class="btn btn-default">Form XML</a>
 <!--a href="{% url 'etd_drop_app.views.submission_detail' submission_id %}" class="btn btn-default">Form XML</a-->
 {% if submission.license_file %}
 <a href="{% url 'etd_drop_app.views.submission_contents' submission_id 'data/license.pdf' %}" class="btn btn-default">License Document</a>

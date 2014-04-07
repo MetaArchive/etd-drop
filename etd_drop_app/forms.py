@@ -4,6 +4,7 @@ import zipfile
 import json
 import shutil
 from datetime import datetime
+from xml.dom.minidom import parseString
 
 from django import forms, template
 from django.conf import settings
@@ -11,6 +12,7 @@ from django.forms.extras import SelectDateWidget
 from django.template.loader import render_to_string
 
 import bagit
+from dicttoxml import dicttoxml
 
 from .validators import *
 
@@ -118,8 +120,6 @@ class NewSubmissionForm(forms.Form):
                 supplemental_zip.close()
 
             # Create a dict representing all the form data
-            form_record_path = os.path.join(staging_path, "form.json")
-            form_record_file = open(form_record_path, 'w')
             form_record = {
                 'document_file': {
                     'original_filename': self.cleaned_data['document_file'].name,
@@ -142,12 +142,16 @@ class NewSubmissionForm(forms.Form):
                     'size': self.cleaned_data['license_file'].size,
                     'content_type': self.cleaned_data['license_file'].content_type 
                 }
-            json.dump(form_record, form_record_file,
-                skipkeys=True,
-                indent=2
-            )
-            form_record_file.close()
-            # TODO: Maybe write an XML version also
+            form_record_json_path = os.path.join(staging_path, "form.json")
+            with open(form_record_json_path, 'w') as form_record_file:
+                json.dump(form_record, form_record_file,
+                    skipkeys=True,
+                    indent=2
+                )
+            form_record_xml_path = os.path.join(staging_path, "form.xml")
+            with open(form_record_xml_path, 'w') as form_record_file:
+                xml_string = parseString(dicttoxml(form_record)).toprettyxml()
+                form_record_file.write(xml_string)
 
             # Turn the staging directory into a bag
             bag_info = {}
