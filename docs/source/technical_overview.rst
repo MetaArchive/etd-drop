@@ -39,6 +39,7 @@ take place:
     * etd.pdf (the main thesis/dissertation PDF file)
     * license.pdf (the license agreement PDF file, if provided)
     * form.json (JSON-encoded representation of what was submitted via the form)
+    * form.xml (XML-encoded representation of what was submitted via the form)
     * supplemental/ (contents of the supplemental data ZIP file, if provided)
 
   * bagit.txt
@@ -52,14 +53,15 @@ file checksums at a later point in time.
 Form Data Representation
 ------------------------
 
-Along with the uploaded files, ETD Drop includes a JSON document containing 
-the values given by the user via the submission form (along with some basic 
-metadata relating to the files that were uploaded). The document is stored as 
-``form.json`` and is found within the ``data`` directory of a submission 
-package. This document is small and should be easy to parse (even for a 
-human). The presence of individual keys will depend on which form fields were 
-enabled in ``settings.py`` and what was actually provided by the user. Here 
-is a sample of the contents of a typical ``form.json``::
+Along with the uploaded files, ETD Drop includes JSON and XML documents 
+containing the values given by the user via the submission form (along with 
+some basic metadata relating to the files that were uploaded). The documents 
+are stored as ``form.json`` and ``form.xml``, and are found within the 
+``data`` directory of a submission package. This document is small and should 
+be easy to parse (even for a human). The presence of individual keys will 
+depend on which form fields were enabled in ``settings.py`` and what was 
+actually provided by the user. Here is a sample of the contents of a typical 
+``form.json``::
 
     {
       "document_file": {
@@ -72,14 +74,39 @@ is a sample of the contents of a typical ``form.json``::
         "original_filename": "license.pdf", 
         "size": 81439
       }, 
-      "description": "Sample description.", 
+      "abstract": "Sample abstract.", 
       "supplemental_file": {
         "content_type": "application/zip", 
         "original_filename": "supplemental_data.zip", 
         "size": 5181242
       }, 
-      "title": "Sample Title"
+      "title": "Sample Title",
+      "author": "Sample Author"
     }
+
+And here is an equivalent example of a ``form.xml`` file::
+
+    <?xml version="1.0" ?>
+    <root>
+      <author type="str">Sample Author</author>
+      <abstract type="str">Sample abstract.</abstract>
+      <title type="str">Sample Title</title>
+      <document_file type="dict">
+        <content_type type="str">application/pdf</content_type>
+        <original_filename type="str">thesis.pdf</original_filename>
+        <size type="int">2149036</size>
+      </document_file>
+      <license_file type="dict">
+        <content_type type="str">application/pdf</content_type>
+        <original_filename type="str">license.pdf</original_filename>
+        <size type="int">81439</size>
+      </license_file>
+      <supplemental_file type="dict">
+        <content_type type="str">application/zip</content_type>
+        <original_filename type="str">supplemental_data.zip</original_filename>
+        <size type="int">5181242</size>
+      </supplemental_file>
+    </root>
 
 Project Source Code Layout
 ==========================
@@ -87,17 +114,17 @@ Project Source Code Layout
 The general structure of this repository is as follows::
 
     etd-drop/             # Top level git repository
-    ├── docs/             ## Documentation (uses Sphinx Docs)
-    ├── etd_drop/         ## Django project files
-    │   └── settings.py   ### Project settings
-    ├── etd_drop_app      ## Main Django application code
-    │   ├── forms.py      ### Form processing code
-    │   ├── static/       ### Static resources (CSS and images)
-    │   ├── templates/    ### HTML templates
-    │   ├── urls.py       ### URL routing patterns
-    │   └── views.py      ### View generation code
-    ├── nginx/            ## Sample configuration for nginx
-    ├── LICENSE           ## Source code license
-    ├── manage.py         ## Project management script
-    ├── README.md         ## Project README
-    └── requirements.txt  ## pip package dependencies
+        docs/             ## Documentation (uses Sphinx Docs)
+        etd_drop/         ## Django project files
+            settings.py   ### Project settings
+        etd_drop_app      ## Main Django application code
+            forms.py      ### Form processing code
+            static/       ### Static resources (CSS and images)
+            templates/    ### HTML templates
+            urls.py       ### URL routing patterns
+            views.py      ### View generation code
+        nginx/            ## Sample configuration for nginx
+        LICENSE           ## Source code license
+        manage.py         ## Project management script
+        README.md         ## Project README
+        requirements.txt  ## pip package dependencies
