@@ -15,6 +15,7 @@ import bagit
 from dicttoxml import dicttoxml
 
 from .validators import *
+from vendor.bag_describe import bag_describe
 
 
 class NewSubmissionForm(forms.Form):
@@ -162,6 +163,18 @@ class NewSubmissionForm(forms.Form):
             # Remove "STAGING_" from the name of the directory to signify completion
             final_path = os.path.abspath(os.path.join(settings.ETD_STORAGE_DIRECTORY, etd_id))
             os.rename(staging_path, final_path)
+
+            # Perform optional DAITSS Format Description Service metadata generation
+            try:
+                description_url = getattr(settings, 'DESCRIPTION_SERVICE_URL', None)
+                if description_url:
+					bag_describe(description_url, final_path)
+
+            except Exception as e:
+                # Log this failure of the description service
+                # TODO
+                if settings.DEBUG:
+                    raise e
             
             # Fire any emails/notifications/webhooks the institution wants to receive
             try:
@@ -181,7 +194,8 @@ class NewSubmissionForm(forms.Form):
             except Exception as e:
                 # Log this email failure
                 # TODO
-                pass
+                if settings.DEBUG:
+                    raise e
 
             # Return the id to signify success to the caller
             return etd_id
