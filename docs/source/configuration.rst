@@ -223,6 +223,24 @@ A string containing an email address that will be displayed on the homepage
 for users to email if they need help. If this setting is blank or undefined, 
 the email address will be hidden.
 
+DESCRIPTION_SERVICE_URL
+-----------------------
+
+Default: Not set
+
+A string containing a URL to a running instance of the DAITSS Format 
+Description service (https://github.com/daitss/describe).
+
+If set, the description service will be used to generate PREMIS-formatted 
+identification/validation/characterization data (powered by DROID, JHOVE) for 
+each of the files in the submission package when submissions are created.
+
+For more information about this process and how to run your own instance of 
+the Format Description Service in your environment, see: 
+https://github.com/MetaArchive/bag-describe
+
+Example: ``DESCRIPTION_SERVICE_URL = "http://localhost:3000"``
+
 SUBMISSION_EMAIL_RECIPIENTS
 ---------------------------
 

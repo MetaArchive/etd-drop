@@ -86,13 +86,13 @@ TIME_ZONE = 'UTC'
 # e.g. ETD_STORAGE_DIRECTORY = "/data/submissions"
 ETD_STORAGE_DIRECTORY = get_env_setting('ETD_STORAGE_DIRECTORY', default=mkdtemp(prefix="etd-drop"))
 
-# Uncomment if you want to get DAITSS Format Description Service output for 
-# submissions (Not implemented yet)
-#DESCRIPTION_SERVICE_URL = "http://localhost:3000"
-
 # Contact info shown on homepage
 CONTACT_PHONE = "(000) 000-0000"
 CONTACT_EMAIL = "example@domain.edu"
+
+# Uncomment if you want to get DAITSS Format Description Service output for 
+# submissions (see https://github.com/MetaArchive/bag-describe)
+#DESCRIPTION_SERVICE_URL = "http://localhost:3000"
 
 # List of email addresses to receive emails when submissions are received
 SUBMISSION_EMAIL_RECIPIENTS = [
