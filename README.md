@@ -2,6 +2,8 @@
 
 **This software is still being developed and is not ready for production use.**
 
+[![Build Status](https://travis-ci.org/MetaArchive/etd-drop.svg?branch=master)](https://travis-ci.org/MetaArchive/etd-drop)
+
 ## Overview
 
 ETD Drop is a Django project+app providing a simple web application for
