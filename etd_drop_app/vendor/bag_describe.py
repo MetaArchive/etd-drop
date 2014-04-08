@@ -38,13 +38,8 @@ def bag_describe(url, bag_path):
         current_dir = os.path.join(bag_path, 'premis', dirpath)
         os.makedirs(current_dir)
         for filename in filenames:
-            extension = os.path.splitext(filename)[1]
             filepath = os.path.join(dirpath, filename)
             with open(filepath, 'r') as document:
-                r = requests.post(
-                    describe_url,
-                    files={'document': document},
-                    data={'extension': extension}
-                )
+                r = requests.post(describe_url, files={'file': document})
                 with open(os.path.join(current_dir, filename+'.xml'), 'w') as premis:
                     premis.write(r.text)
