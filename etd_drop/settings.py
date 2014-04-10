@@ -218,3 +218,8 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+# Override the default absolute URLs for Users
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: "",
+}
