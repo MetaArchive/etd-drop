@@ -13,7 +13,7 @@ submitting Electronic Theses and Dissertations (ETDs).
 
 You can find the ETD Drop documentation online on Read The Docs:
 
-http://premis-event-service.readthedocs.org/
+http://etd-drop.readthedocs.org/
 
 The documentation is also browsable locally, within the `docs/source` 
 directory of this repository. To build a local HTML version viewable offline, 
