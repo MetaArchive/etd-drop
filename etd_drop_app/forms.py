@@ -66,7 +66,7 @@ class NewSubmissionForm(forms.Form):
     date = forms.DateField(
         label="Date",
         required=settings.SUBMISSION_FORM_FIELDS['date']['required'],
-        widget=SelectDateWidget,
+        widget=SelectDateWidget(years=range(2010, 2030)),
         help_text="Date of publication as it appears on your title page"
     )
     abstract = forms.CharField(
