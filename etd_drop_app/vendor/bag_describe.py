@@ -1,5 +1,6 @@
 import os
 import urllib2
+import argparse
 
 import requests  # pip install requests
 
@@ -12,6 +13,7 @@ def bag_describe(url, bag_path):
     Note: If you have a tagmanifest, you should use a BagIt utility to update
     it after this operation. Otherwise, these tags will not be accounted for.
 
+    Parameters:
     url - e.g. "http://localhost:3000"
     bag_path - Path to the top level of a BagIt bag
     '''
@@ -27,7 +29,7 @@ def bag_describe(url, bag_path):
         raise Exception("Bag path contains no bagit.txt file: %s" % bag_path)
 
     # Verify description service is reachable
-    if urllib2.urlopen(url).getcode() is not 200:
+    if urllib2.urlopen(url).getcode() != 200:
         raise Exception(
             "Description service not reachable at given URL: %s" % url
         )
@@ -43,3 +45,25 @@ def bag_describe(url, bag_path):
                 r = requests.post(describe_url, files={'file': document})
                 with open(os.path.join(current_dir, filename+'.xml'), 'w') as premis:
                     premis.write(r.text)
+
+
+def _make_arg_parser():
+    parser = argparse.ArgumentParser(
+        description="Describe a BagIt bag using the DAITSS Format "
+                    "Description Service."
+    )
+    parser.add_argument(
+        'url',
+        help="URL of running instance of DAITSS Format Description Service "
+             "(e.g. 'http://localhost:3000')"
+    )
+    parser.add_argument('bag', help="path to the bag being surveyed")
+    return parser
+
+if __name__ == "__main__":
+    '''Command-line usage:
+    python bag-describe.py <URL> <BAG>
+    '''
+    parser = _make_arg_parser()
+    args = parser.parse_args()
+    bag_describe(args.url, args.bag)
