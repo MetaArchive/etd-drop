@@ -13,6 +13,10 @@ local filesystem, in order to make ETD Drop's scope as limited as
 possible and to facilitate easy atomic integration into larger
 workflows.
 
+This project makes heavy use of Python docstrings. These are the best
+places to look for details about a particular module, class, method, or
+function.
+
 .. contents::
     :local:
     :depth: 2
