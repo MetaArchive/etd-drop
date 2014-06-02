@@ -9,6 +9,7 @@ This manual is divided into the following parts:
 * :ref:`admin-docs`
 * :ref:`staff-docs`
 * :ref:`user-docs`
+* :ref:`dev-docs`
 
 
 .. _admin-docs:
@@ -44,3 +45,14 @@ For End Users / Students
    :maxdepth: 2
 
    submitting_an_etd
+
+.. _dev-docs:
+
+For Developers
+--------------
+
+.. toctree::
+   :maxdepth: 2
+
+   technical_overview
+   developer_overview

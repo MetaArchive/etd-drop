@@ -108,23 +108,8 @@ And here is an equivalent example of a ``form.xml`` file::
       </supplemental_file>
     </root>
 
-Project Source Code Layout
-==========================
+Understanding the Project Code
+==============================
 
-The general structure of this repository is as follows::
-
-    etd-drop/             # Top level git repository
-        docs/             ## Documentation (uses Sphinx Docs)
-        etd_drop/         ## Django project files
-            settings.py   ### Project settings
-        etd_drop_app      ## Main Django application code
-            forms.py      ### Form processing code
-            static/       ### Static resources (CSS and images)
-            templates/    ### HTML templates
-            urls.py       ### URL routing patterns
-            views.py      ### View generation code
-        nginx/            ## Sample configuration for nginx
-        LICENSE           ## Source code license
-        manage.py         ## Project management script
-        README.md         ## Project README
-        requirements.txt  ## pip package dependencies
+For more in-depth information suited for developers, continue to the
+:doc:`developer_overview`.
