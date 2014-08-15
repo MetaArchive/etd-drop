@@ -223,3 +223,6 @@ MESSAGE_TAGS = {
 ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda u: "",
 }
+
+# Change to True to enable virus scanning. Requires pyclamd
+ENABLE_CLAMD = False
