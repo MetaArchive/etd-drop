@@ -33,8 +33,12 @@ Initial Setup
    your user's home directory.
 2. ``cd`` into this repository's directory.
 3. Create a new virtual environment here: ``virtualenv.py venv``
+4. Copy ``etd_drop/settings.py.example`` to ``etd_drop/settings.py``.
 4. Edit ``etd_drop/settings.py`` in a code or plain text editor and set up your 
    any settings you need to override (see the Configuration section below).
+5. Copy ``etd_drop/env_example`` to ``etd_drop/.env``.
+6. Edit ``etd_drop/.env`` with a text editor and configure the settings
+   to your desired setup.
 
 Each Time You Begin a New Work Session
 --------------------------------------
@@ -163,4 +167,4 @@ Finally, the commands you will use to start up the servers::
 
     sudo service nginx restart
     cd /srv/django/etd-drop
-    sudo /srv/venv/etd-drop/bin/gunicorn -b unix:/tmp/gunicorn.sock etd_drop.wsgi:application
+    sudo DOTENV=/srv/django/etd-drop/.env /srv/venv/etd-drop/bin/gunicorn -b unix:/tmp/gunicorn.sock etd_drop.wsgi:application

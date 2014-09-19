@@ -50,6 +50,27 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.6/ref/settings/#debug
 DEBUG = bool(int(get_env_setting('DJANGO_DEBUG', default=False)))
 
+LOGGING_LEVEL = get_env_setting('DJANGO_LOGGING_LEVEL', default='DEBUG')
+LOGGING_PATH = get_env_setting('DJANGO_LOGGING_PATH', default='/tmp/logpath')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': LOGGING_LEVEL,
+            'class': 'logging.FileHandler',
+            'filename': LOGGING_PATH,
+        },
+    },
+    'loggers': {
+        'ETD-DROP' : {
+            'handlers' : [ 'file' ],
+            'level' : LOGGING_LEVEL,
+        },
+    },
+}
+
 # Email server settings (for sending notification emails to staff)
 # https://docs.djangoproject.com/en/1.6/ref/settings/#email-backend
 # https://docs.djangoproject.com/en/1.6/topics/email/#smtp-backend
@@ -224,5 +245,4 @@ ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda u: "",
 }
 
-# Change to True to enable virus scanning. Requires pyclamd
-ENABLE_CLAMD = False
+ENABLE_CLAMD = bool(int(get_env_setting('ENABLE_CLAMD', default=False)))

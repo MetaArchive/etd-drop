@@ -1,0 +1,21 @@
+#For boolean values, use 1 for true, 0 for false
+DJANGO_DEBUG='1'
+
+#Change this to something unique
+DJANGO_SECRET_KEY='blahblahblah'
+
+#Location of ETD Storage on filesystem
+#Make sure it exists!
+#ETD_STORAGE_DIRECTORY='/tmp/etd'
+
+#Change to '1' if you want to enable virus scanning.
+#Requires working Clamav Daemon and pyclamd
+ENABLE_CLAMD='0'
+
+#What level should logging be
+DJANGO_LOGGING_LEVEL='DEBUG'
+
+#Where should logs be stored
+DJANGO_LOGGING_PATH='/tmp/etd-drop-log'
+
+

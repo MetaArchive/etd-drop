@@ -3,6 +3,7 @@ import sys
 import zipfile
 import json
 import shutil
+import logging
 from datetime import datetime
 from xml.dom.minidom import parseString
 
@@ -17,12 +18,16 @@ from dicttoxml import dicttoxml
 from .validators import *
 from vendor.bag_describe import bag_describe
 
+logger = logging.getLogger('ETD-DROP')
+
 CLAMD = False
 if settings.ENABLE_CLAMD:
     try:
         import pyclamd
         CLAMD = True
-    except ImportError:
+        logger.debug("pyclamd is enabled")
+    except ImportError, ie:
+        logger.debug("Logging is enabled, but unable import pyclamd: %s" % ie) 
         pass
 
 class ScanException(Exception):
@@ -127,6 +132,7 @@ class NewSubmissionForm(forms.Form):
                 clam_daemon = pyclamd.ClamdAgnostic()
                 result = clam_daemon.scan_file(document_path)
                 if result is not None:
+                    logger.debug("Virus detected in file %s" % document_path)
                     raise ScanException("Error: Virus detected in uploaded ETD file")
 
             # Move the license document to the staging area, if provided
