@@ -34,10 +34,10 @@ Initial Setup
 2. ``cd`` into this repository's directory.
 3. Create a new virtual environment here: ``virtualenv.py venv``
 4. Copy ``etd_drop/settings.py.example`` to ``etd_drop/settings.py``.
-4. Edit ``etd_drop/settings.py`` in a code or plain text editor and set up your 
+5. Edit ``etd_drop/settings.py`` in a code or plain text editor and set up your 
    any settings you need to override (see the Configuration section below).
-5. Copy ``etd_drop/env_example`` to ``etd_drop/.env``.
-6. Edit ``etd_drop/.env`` with a text editor and configure the settings
+6. Copy ``env_example`` to ``.env``.
+7. Edit ``.env`` with a text editor and configure the settings
    to your desired setup.
 
 Each Time You Begin a New Work Session
