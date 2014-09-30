@@ -3,7 +3,7 @@ python:
   - "2.7"
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -r requirements.txt --use-mirrors
-# copy settings file
+# copy settings file from example 
 script: cp etd-drop/settings.py.example etd-drop/settings.py
 # command to run tests, e.g. python setup.py test
 script: DJANGO_SECRET_KEY=test python manage.py test
