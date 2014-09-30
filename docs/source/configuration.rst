@@ -18,6 +18,10 @@ configurations (like Apache and Nginx), set in your personal .bashrc
 or .profile files for easy personal use, or stated at the beginning of a 
 terminal command (for example: ``DJANGO_DEBUG=1 python manage.py runserver``).
 
+ETD-Drop supports the 'dotenv' configuration convention, and will look for a
+.env file in the top level directory with values for runtime-configurable
+settings.
+
 DJANGO_DEBUG
 ------------
 
@@ -33,6 +37,40 @@ Accepted values: Any string
 Overrides the SECRET_KEY setting, which should be set to a long, randomized 
 string of characters used for security purposes (see the SECRET_KEY section 
 later in this page).
+
+ETD_STORAGE_DIRECTORY
+---------------------
+
+Accepted values: Any valid pathname
+
+Overrides the ETD_STORAGE_DIRECTORY setting, which is where the stored
+ETDs that are uploaded will be kept. Make sure that this directory exists
+and is writable by the ETD-Drop process.
+
+ENABLE_CLAMD
+------------
+
+Accepted values: 1 (on) or 0 (off) (default)
+
+Set to 1 if you want ETD-Drop to use Clam Antivirus to scan uploaded ETDs.
+This requires that the Clam-AV Daemon be installed and running.
+
+DJANGO_LOGGING_LEVEL
+--------------------
+
+Accepted values: 'DEBUG', 'INFO', 'WARNING', 'ERROR' or 'CRITICAL'
+
+Overrides the LOGGING_LEVEL setting, which controls the severity of events
+that will be reported by the logger.
+
+DJANGO_LOGGING_PATH
+-------------------
+
+Accepted values: Any valid pathname
+
+Overrides the LOGGING_PATH setting, which controls where ETD-Drop will
+keep its logs. Make sure that the file is writable by the ETD-Drop
+process.
 
 Core settings
 =============

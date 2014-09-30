@@ -3,6 +3,7 @@ import sys
 import zipfile
 import json
 import shutil
+import logging
 from datetime import datetime
 from xml.dom.minidom import parseString
 
@@ -17,6 +18,20 @@ from dicttoxml import dicttoxml
 from .validators import *
 from vendor.bag_describe import bag_describe
 
+logger = logging.getLogger('ETD-DROP')
+
+CLAMD = False
+if settings.ENABLE_CLAMD:
+    try:
+        import pyclamd
+        CLAMD = True
+        logger.debug("pyclamd is enabled")
+    except ImportError, ie:
+        logger.debug("Logging is enabled, but unable import pyclamd: %s" % ie) 
+        pass
+
+class ScanException(Exception):
+    pass
 
 class NewSubmissionForm(forms.Form):
     """
@@ -80,6 +95,12 @@ class NewSubmissionForm(forms.Form):
         required=True
     )
     # TODO: Custom validation that PDF is really a PDF, etc...
+
+    def is_valid(self):
+        valid = super(forms.Form, self).is_valid()
+
+        return valid
+
     def save(self, author):
         """
         Saves the submission, taking care of BagIt creation and any
@@ -105,6 +126,14 @@ class NewSubmissionForm(forms.Form):
             with open(document_path, 'wb+') as destination:
                 for chunk in self.cleaned_data['document_file']:
                     destination.write(chunk)
+
+            # Perform a virus scan on the staged file
+            if CLAMD:
+                clam_daemon = pyclamd.ClamdAgnostic()
+                result = clam_daemon.scan_file(document_path)
+                if result is not None:
+                    logger.debug("Virus detected in file %s" % document_path)
+                    raise ScanException("Error: Virus detected in uploaded ETD file")
 
             # Move the license document to the staging area, if provided
             if self.cleaned_data['license_file']:
