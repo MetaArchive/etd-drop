@@ -1,0 +1,21 @@
+If you wish to use the virus checking capabilities, here are some additional
+steps that you need to take in order to enable this functionality.
+
+- If you are installing fresh, note that there is no longer a settings.py file
+included with the repository. Instead, copy the settings.py.example file to
+settings.py and make configuration changes accordingly.
+
+- In addition to the configuration described in the standard install documents,
+edit the settings.py and find the ENABLE_CLAMD entry. Make sure that it is
+equal to True (default is False).
+
+- Virus scanning relies on the clamav daemon. Make sure you have it installed
+and running. In Ubuntu, this is as simple as:
+  sudo apt-get install clamav-daemon
+  sudo freshclam
+
+- From within your virtualenv, make sure that you have pyclamd installed. You
+can install with:
+  pip install pyclamd.
+
+
