@@ -6,6 +6,6 @@ install: pip install -r requirements.txt --use-mirrors
 # copy settings file from example 
 # command to run tests, e.g. python setup.py test
 script: 
-- cp ./etd-drop/settings.py.example ./etd-drop/settings.py
+- cp ./etd_drop/settings.py.example ./etd_drop/settings.py
 - DJANGO_SECRET_KEY=test python manage.py test
 
