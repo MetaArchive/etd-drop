@@ -1,7 +1,5 @@
 # ETD Drop
 
-**This software is still being developed and is not ready for production use.**
-
 [![Build Status](https://travis-ci.org/MetaArchive/etd-drop.svg?branch=master)](https://travis-ci.org/MetaArchive/etd-drop)
 
 ## Overview
