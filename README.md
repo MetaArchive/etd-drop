@@ -1,4 +1,4 @@
-# ETD Drop
+# [Archived] ETD Drop
 
 [![Build Status](https://travis-ci.org/MetaArchive/etd-drop.svg?branch=master)](https://travis-ci.org/MetaArchive/etd-drop)
 
